@@ -7,9 +7,11 @@ public class SMG : Weapon {
 	public GameObject bullet;
 
 	private float lastFireTime=0;
+
 	void Update(){
 		if (Time.time - lastFireTime > fireInterval && triggerPressed)
 			Fire ();
+		AnimateRecoil ();
 	}
 
 	public override void Fire(){
@@ -19,6 +21,7 @@ public class SMG : Weapon {
 		GameObject newBullet = Instantiate (bullet, muzzleFlare.transform.position, Quaternion.identity) as GameObject;
 		newBullet.transform.forward = muzzleFlare.transform.forward;
 		newBullet.GetComponent<Bullet> ().Fire ();
+		StartRecoil ();
 
 		lastFireTime = Time.time;
 	}
