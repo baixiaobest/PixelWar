@@ -36,7 +36,19 @@ public class PlayerMovement : MonoBehaviour {
 		case MovementMode.Ground:
 			MoveOnGround ();
 			break;
+		case MovementMode.Air:
+			MoveInAir ();
+			break;
 		}
+	}
+
+	private void MoveInAir(){
+		if (!running) {
+			rigid.velocity = Vector3.Lerp (new Vector3(rigid.velocity.x, 0, rigid.velocity.z), walkSpeed * speedVec, speedLerp) + new Vector3(0, rigid.velocity.y, 0);
+		} else {
+			rigid.velocity = Vector3.Lerp (new Vector3(rigid.velocity.x, 0, rigid.velocity.z), runSpeed * speedVec, speedLerp) + new Vector3(0, rigid.velocity.y, 0);
+		}
+		ClearSpeed ();
 	}
 
 	private void MoveOnGround(){
@@ -65,7 +77,8 @@ public class PlayerMovement : MonoBehaviour {
 		speedVec = speedVec.normalized;
 	}
 	private void Run(){
-		running = true;
+		if(movementMode != MovementMode.Air)
+			running = true;
 	}
 	private void Walk(){
 		running = false;
