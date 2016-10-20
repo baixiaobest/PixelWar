@@ -16,3 +16,4 @@
 /Users/baixiao/Desktop/PixelWar/Temp/bin/Debug/Unity.CecilTools.dll
 /Users/baixiao/Desktop/PixelWar/Temp/bin/Debug/Mono.Cecil.Pdb.dll
 /Users/baixiao/Desktop/PixelWar/Temp/bin/Debug/Mono.Cecil.Mdb.dll
+/Users/baixiao/Desktop/PixelWar/Temp/bin/Debug/BehaviorDesignerRuntime.dll

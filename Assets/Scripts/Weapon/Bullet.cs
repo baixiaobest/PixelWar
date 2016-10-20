@@ -29,14 +29,16 @@ public class Bullet : MonoBehaviour {
 			Vector3 incomingVec = -transform.forward;
 			// reflect incoming vector against normal of contact point
 			float incomingDotnormal = Vector3.Dot (incomingVec, contactPt.normal);
-			Vector3 outgoingVec = incomingVec + 2 *( contactPt.normal * incomingDotnormal - incomingVec );
+			Vector3 outgoingVec = incomingVec + 2 * (contactPt.normal * incomingDotnormal - incomingVec);
 			transform.position = contactPt.point;
 			transform.forward = outgoingVec;
 
 			float scale = 1f - 0.5f * incomingDotnormal;
 			speed = scale * speed;
-			transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y, scale * transform.localScale.z);
+			transform.localScale = new Vector3 (transform.localScale.x, transform.localScale.y, scale * transform.localScale.z);
 			rigid.velocity = outgoingVec * speed;
+		} else {
+			Destroy (gameObject);
 		}
 	}
 }

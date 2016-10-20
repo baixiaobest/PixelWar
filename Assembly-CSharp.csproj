@@ -582,10 +582,15 @@
      <Compile Include="Assets\Behavior Designer\Runtime\Variables\SharedVector2.cs" />
      <Compile Include="Assets\Behavior Designer\Runtime\Variables\SharedVector3.cs" />
      <Compile Include="Assets\Behavior Designer\Runtime\Variables\SharedVector4.cs" />
+     <Compile Include="Assets\Scripts\AI\AIWeaponControl.cs" />
+     <Compile Include="Assets\Scripts\CustomTasks\Action\FireGun.cs" />
      <Compile Include="Assets\Scripts\CustomTasks\Condition\PlayerWithinSight.cs" />
+     <Compile Include="Assets\Scripts\CustomTasks\Condition\TargetLocked.cs" />
      <Compile Include="Assets\Scripts\Event\KeyboardEventHandler.cs" />
      <Compile Include="Assets\Scripts\Player\PlayerMovement.cs" />
      <Compile Include="Assets\Scripts\Player\WeaponControl.cs" />
+     <Compile Include="Assets\Scripts\Vehicle\AirplaneControl.cs" />
+     <Compile Include="Assets\Scripts\Vehicle\AirplanePhysics.cs" />
      <Compile Include="Assets\Scripts\Weapon\Bullet.cs" />
      <Compile Include="Assets\Scripts\Weapon\SMG.cs" />
      <Compile Include="Assets\Scripts\Weapon\Weapon.cs" />

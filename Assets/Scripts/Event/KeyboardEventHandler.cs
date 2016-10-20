@@ -16,6 +16,7 @@ public class KeyboardEventHandler : MonoBehaviour {
 	public static event KeyboardCallback Q_Keydown;
 
 	public static event KeyboardCallback L_Shift;
+	public static event KeyboardCallback L_Control;
 
 	public static event KeyboardCallback Is_Walking;
 
@@ -58,6 +59,11 @@ public class KeyboardEventHandler : MonoBehaviour {
 			Lshift = true;
 			if (L_Shift != null)
 				L_Shift ();
+		}
+
+		if (Input.GetKey (KeyCode.LeftControl)) {
+			if (L_Control != null)
+				L_Control ();
 		}
 
 		if (Input.GetKey ("w")) {
