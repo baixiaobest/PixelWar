@@ -7,9 +7,13 @@ public class KeyboardEventHandler : MonoBehaviour {
 	public delegate void MouseMovementCallBack(float x, float y);
 
 	public static event KeyboardCallback W_Forward;
+	public static event KeyboardCallback W_Keyup;
 	public static event KeyboardCallback S_Backward;
+	public static event KeyboardCallback S_Keyup;
 	public static event KeyboardCallback A_Left;
+	public static event KeyboardCallback A_Keyup;
 	public static event KeyboardCallback D_Right;
+	public static event KeyboardCallback D_Keyup;
 	public static event KeyboardCallback F_Keydown;
 	public static event KeyboardCallback Space_Key;
 	public static event KeyboardCallback Space_Keydown;
@@ -87,6 +91,25 @@ public class KeyboardEventHandler : MonoBehaviour {
 			movementKey = true;
 			if (D_Right != null)
 				D_Right ();
+		}
+
+		if (Input.GetKeyUp ("w")) {
+			if (W_Keyup != null)
+				W_Keyup ();
+		}
+		if (Input.GetKeyUp ("s")) {
+			if (S_Keyup != null)
+				S_Keyup ();
+		}
+
+		if (Input.GetKeyUp ("a")) {
+			if (A_Keyup != null)
+				A_Keyup ();
+		}
+
+		if (Input.GetKeyUp ("d")) {
+			if (D_Keyup != null)
+				D_Keyup ();
 		}
 
 		if (Input.GetKeyDown ("f")) {

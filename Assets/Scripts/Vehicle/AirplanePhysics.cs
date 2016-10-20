@@ -5,25 +5,42 @@ public class AirplanePhysics : MonoBehaviour {
 	public Transform centerOfMass;
 	public Transform centerOfLift;
 	public Transform centerOfTrust;
-	public Transform leftAileron;
-	public Transform rightAileron;
-	public Transform elevator;
-	public Transform rudder;
-	public float coefficientOfDrag = 0.1f;
+
+	public float stallAngle = 45f;
+	/////////////
+	/// DRAG ////
+	/////////////
+	// when angle of attack smaller than this value, drag is constant, when larger than this,
+	// drag becomes a function of angle of attack
+	// this function is characterized by parameter dragFactor
+	// refer to graphs at https://www.grc.nasa.gov/www/k-12/airplane/inclind.html
+
+	public float smallAngleDragCoefficient = 4f; // drag coefficient under certain degrees
+	public float dragSmallAngle = 5f; 
+	public float dragFactor = 0.5f;  // describes how fast coefficient of drag increases after small angle
+	public float stallDragCoefficient = 6f;
+
+	////////////
+	/// LIFT ///
+	////////////
+
 	// for coefficient of lift calculation
-	public float COLslope = 0.1f;
-	public float COLYaxisCross = 0.5f;
+	// lift is a function of angle of attack, characterized by two parameter COLslope and COLYaxisCross
+	// refer to https://www.grc.nasa.gov/www/k-12/airplane/incline.html
+	public float COLslope = 10f;
+	public float COLYaxisCross = 280f;
+	public float stallLiftCoefficient = 140f;
+
+
+	///////////////
+	/// CONTROL ///
+	///////////////
 
 	public float maxThrust;
 	public float aileronTorqueCoefficient;
 	public float elevatorTorqueCoefficient;
 	public float rudderTorqueCoefficient;
 
-
-
-	private Vector3 COM;
-	private Vector3 COT;
-	private Vector3 COL;
 	private Rigidbody rigid;
 	private Vector3 thrustVec;
 
@@ -34,27 +51,40 @@ public class AirplanePhysics : MonoBehaviour {
 
 	void Start(){
 		thrustVec = new Vector3 (0, 0, 0);
-		COM = centerOfMass.position - transform.position;
-		COT = centerOfTrust.position - transform.position;
-		COL = centerOfLift.position - transform.position;
+		Vector3 COM = centerOfMass.position - transform.position;
 		rigid = GetComponent<Rigidbody> ();
 		rigid.centerOfMass = COM;
 	}
 
 	void FixedUpdate(){
-		rigid.AddForceAtPosition (thrustVec, COT);
+		rigid.AddForceAtPosition (thrustVec, centerOfTrust.position);
 
-		float airflowSpeed = Vector3.Dot (rigid.velocity, centerOfLift.forward);
-		Vector3 airflow = centerOfLift.forward * airflowSpeed;
-		float angleOfAttack = Vector3.Angle (airflow, centerOfLift.up) - 90f;
-		float liftCoefficient = COLslope * angleOfAttack + COLYaxisCross;
-		float lift = rigid.velocity.magnitude * liftCoefficient;
+		// lift
+		float airflowSpeed = rigid.velocity.magnitude;
+		float angleOfAttack = Vector3.Angle (rigid.velocity, centerOfLift.up) - 90f;
+		float lift;
+		if (Mathf.Abs (angleOfAttack) < stallAngle) {
+			float liftCoefficient = COLslope * angleOfAttack + COLYaxisCross;
+			lift = rigid.velocity.magnitude * liftCoefficient;
+		} else {
+			lift = stallLiftCoefficient;
+		}
 		Vector3 liftVec = centerOfLift.up * lift;
-		rigid.AddForceAtPosition (liftVec, COL);
+		rigid.AddForceAtPosition (liftVec, centerOfLift.position);
 
-		float drag = coefficientOfDrag * rigid.velocity.magnitude * rigid.velocity.magnitude;
+		// drag
+		float dragCoefficient;
+		// different drag coefficients for stall and normal state
+		if (Mathf.Abs (angleOfAttack) < stallAngle) {
+			float angleExceedSmallAngle = Mathf.Clamp (Mathf.Abs (angleOfAttack) - dragSmallAngle, 0, 90);
+			dragCoefficient = smallAngleDragCoefficient + dragFactor * angleExceedSmallAngle;
+		} else {
+			dragCoefficient = stallDragCoefficient;
+		}
+
+		float drag = dragCoefficient * rigid.velocity.magnitude * rigid.velocity.magnitude;
 		Vector3 dragVec = -rigid.velocity.normalized * drag;
-		rigid.AddForceAtPosition (dragVec, COM);
+		rigid.AddForceAtPosition (dragVec, centerOfMass.position);
 
 		Vector3 aileronTorque = aileronControl * aileronTorqueCoefficient * airflowSpeed * transform.forward;
 		Vector3 elevatorTorque = elevatorControl * elevatorTorqueCoefficient * airflowSpeed * transform.right;

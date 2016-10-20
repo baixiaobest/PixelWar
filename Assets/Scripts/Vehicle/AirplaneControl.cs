@@ -15,6 +15,10 @@ public class AirplaneControl : MonoBehaviour {
 		KeyboardEventHandler.W_Forward += PitchDown;
 		KeyboardEventHandler.L_Shift += ThrustUp;
 		KeyboardEventHandler.L_Control += ThrustDown;
+		KeyboardEventHandler.W_Keyup += PitchZero;
+		KeyboardEventHandler.S_Keyup += PitchZero;
+		KeyboardEventHandler.A_Keyup += RollZero;
+		KeyboardEventHandler.D_Keyup += RollZero;
 	}
 
 	private void ThrustUp(){
@@ -32,19 +36,27 @@ public class AirplaneControl : MonoBehaviour {
 	}
 
 	private void RollRight(){
-		airplane.SetAileron (1f);
-	}
-
-	private void RollLeft(){
 		airplane.SetAileron (-1f);
 	}
 
+	private void RollLeft(){
+		airplane.SetAileron (1f);
+	}
+
+	private void RollZero(){
+		airplane.SetAileron (0f);
+	}
+
 	private void PitchUp(){
-		airplane.SetElevator (1f);
+		airplane.SetElevator (-1f);
 	}
 
 	private void PitchDown(){
-		airplane.SetElevator (-1f);
+		airplane.SetElevator (1f);
+	}
+
+	private void PitchZero(){
+		airplane.SetElevator (0f);
 	}
 
 }
