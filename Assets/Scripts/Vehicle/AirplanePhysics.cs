@@ -42,21 +42,26 @@ public class AirplanePhysics : MonoBehaviour {
 	public float rudderTorqueCoefficient;
 
 	private Rigidbody rigid;
-	private Vector3 thrustVec;
+	private float thrust;
 
 	// these control how much of aileron is open, value from -1 to 1;
 	private float aileronControl=0;
 	private float elevatorControl=0;
 	private float rudderControl=0;
 
+	// debug
+	private float AOA;
+	private float dragCoe;
+
 	void Start(){
-		thrustVec = new Vector3 (0, 0, 0);
+		thrust = 0;
 		Vector3 COM = centerOfMass.position - transform.position;
 		rigid = GetComponent<Rigidbody> ();
 		rigid.centerOfMass = COM;
 	}
 
 	void FixedUpdate(){
+		Vector3 thrustVec = thrust * centerOfTrust.forward;
 		rigid.AddForceAtPosition (thrustVec, centerOfTrust.position);
 
 		// lift
@@ -92,10 +97,17 @@ public class AirplanePhysics : MonoBehaviour {
 		rigid.AddTorque (aileronTorque);
 		rigid.AddTorque (elevatorTorque);
 		rigid.AddTorque (rudderTorque);
+
+		// debug
+		AOA = angleOfAttack;
+		dragCoe = dragCoefficient;
+		Debug.DrawRay (centerOfTrust.position, 10f * thrustVec/maxThrust, Color.green);
+		Debug.DrawRay (centerOfLift.position, liftVec/500f, Color.green);
+		Debug.DrawRay (centerOfMass.position, dragVec/10f, Color.red);
 	}
 
 	public void SetThrust(float thrustPercentage){
-		thrustVec = maxThrust * thrustPercentage * centerOfLift.forward;
+		thrust = maxThrust * thrustPercentage;
 	}
 
 	// + roll right, - roll left
@@ -111,5 +123,12 @@ public class AirplanePhysics : MonoBehaviour {
 	// + turn left, - turn right
 	public void SetRudder(float value){
 		rudderControl = value;
+	}
+
+	void OnGUI(){
+		GUIStyle style = new GUIStyle ();
+		style.fontSize = 30;
+		GUILayout.Label ("Angle of Attack: "+AOA, style);
+		GUILayout.Label ("Drag Coefficient: " + dragCoe, style);
 	}
 }
