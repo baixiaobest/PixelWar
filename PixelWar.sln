@@ -1,6 +1,8 @@
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2008
 
+Project("{F6E0BC86-E922-D7BE-BC02-03A6C59C509C}") = "PixelWar", "Assembly-CSharp-firstpass.csproj", "{26425002-5B46-D142-F834-2CB1AD47EAC6}"
+EndProject
 Project("{F6E0BC86-E922-D7BE-BC02-03A6C59C509C}") = "PixelWar", "Assembly-CSharp.csproj", "{336537EC-77ED-C802-E291-82C883D80F21}"
 EndProject
 Project("{F6E0BC86-E922-D7BE-BC02-03A6C59C509C}") = "PixelWar", "Assembly-CSharp-Editor.csproj", "{A2BDEE0F-AC7D-26DE-FDD1-1A9C8C2F9417}"
@@ -11,6 +13,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{26425002-5B46-D142-F834-2CB1AD47EAC6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{26425002-5B46-D142-F834-2CB1AD47EAC6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{26425002-5B46-D142-F834-2CB1AD47EAC6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{26425002-5B46-D142-F834-2CB1AD47EAC6}.Release|Any CPU.Build.0 = Release|Any CPU
 		{336537EC-77ED-C802-E291-82C883D80F21}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{336537EC-77ED-C802-E291-82C883D80F21}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{336537EC-77ED-C802-E291-82C883D80F21}.Release|Any CPU.ActiveCfg = Release|Any CPU

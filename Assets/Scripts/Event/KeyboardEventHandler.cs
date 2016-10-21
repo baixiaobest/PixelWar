@@ -18,6 +18,9 @@ public class KeyboardEventHandler : MonoBehaviour {
 	public static event KeyboardCallback Space_Key;
 	public static event KeyboardCallback Space_Keydown;
 	public static event KeyboardCallback Q_Keydown;
+	public static event KeyboardCallback Q_Keyup;
+	public static event KeyboardCallback E_Keydown;
+	public static event KeyboardCallback E_Keyup;
 
 	public static event KeyboardCallback L_Shift;
 	public static event KeyboardCallback L_Control;
@@ -132,6 +135,24 @@ public class KeyboardEventHandler : MonoBehaviour {
 		if (Input.GetKeyDown ("q")) {
 			if (Q_Keydown != null) {
 				Q_Keydown ();
+			}
+		}
+
+		if (Input.GetKeyUp ("q")) {
+			if (Q_Keyup != null) {
+				Q_Keyup ();
+			}
+		}
+
+		if (Input.GetKeyDown ("e")) {
+			if (E_Keydown != null) {
+				E_Keydown ();
+			}
+		}
+
+		if (Input.GetKeyUp ("e")) {
+			if (E_Keyup != null) {
+				E_Keyup ();
 			}
 		}
 

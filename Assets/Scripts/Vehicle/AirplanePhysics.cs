@@ -128,6 +128,7 @@ public class AirplanePhysics : MonoBehaviour {
 	void OnGUI(){
 		GUIStyle style = new GUIStyle ();
 		style.fontSize = 30;
+		GUILayout.Label ("Thrust: " + thrust/maxThrust * 100 + "%", style);
 		GUILayout.Label ("Angle of Attack: "+AOA, style);
 		GUILayout.Label ("Drag Coefficient: " + dragCoe, style);
 	}
