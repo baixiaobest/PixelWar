@@ -21,8 +21,8 @@ public class AirplanePhysics : MonoBehaviour {
 	public float dragFactor = 0.5f;  // describes how fast coefficient of drag increases after small angle
 	public float stallDragCoefficient = 6f;
 	// body drag
-	public float initialBodyDragCoefficient = 1f;  // describes how airspeed create drag on aircraft body
-	public float bodyDragFactor=0.1f; // how fast body drag coefficient increases as angle of airflow against aircraft body increases
+	public float initialBodyDragCoefficient = 0.1f;  // describes how airspeed create drag on aircraft body
+	public float bodyDragFactor=0.05f; // how fast body drag coefficient increases as angle of airflow against aircraft body increases
 
 	////////////
 	/// LIFT ///
@@ -40,13 +40,13 @@ public class AirplanePhysics : MonoBehaviour {
 	/// CONTROL ///
 	///////////////
 
-	public float maxThrust;
-	public float aileronTorqueCoefficient;
-	public float elevatorTorqueCoefficient;
-	public float rudderTorqueCoefficient;
+	public float maxThrust=15000f;
+	public float aileronTorqueCoefficient=300f;
+	public float elevatorTorqueCoefficient=100f;
+	public float rudderTorqueCoefficient=50f;
 
 	private Rigidbody rigid;
-	private float thrust;
+	private float thrust;   // current aircraft thrust
 
 	// these control how much of aileron,elevator,rudder and trim are set, value from -1 to 1;
 	private float aileronControl=0;
@@ -127,6 +127,10 @@ public class AirplanePhysics : MonoBehaviour {
 
 	public void SetThrust(float thrustPercentage){
 		thrust = maxThrust * Mathf.Clamp (thrustPercentage, 0, 1);
+	}
+
+	public float GetCurrentThrustPercentage(){
+		return thrust/maxThrust;
 	}
 
 	// + roll right, - roll left

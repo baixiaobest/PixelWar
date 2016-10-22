@@ -15,19 +15,19 @@ public class WeaponControl : MonoBehaviour {
 		KeyboardEventHandler.Fire2_Keyup += NotUseWeaponScope;
 	}
 
-	private void TriggerPressed(){
+	protected void TriggerPressed(){
 		ActiveWeapon.GetComponent<Weapon> ().TriggerPressed();
 	}
 
-	private void TriggerUp(){
+	protected void TriggerUp(){
 		ActiveWeapon.GetComponent<Weapon> ().TriggerUp();
 	}
 
-	private void UseWeaponScope(){
+	protected void UseWeaponScope(){
 		ActiveWeapon.GetComponent<Weapon> ().UseScope ();
 		cam.fieldOfView = scopeFOV;
 	}
-	private void NotUseWeaponScope(){
+	protected void NotUseWeaponScope(){
 		ActiveWeapon.GetComponent<Weapon> ().UnScope ();
 		cam.fieldOfView = unscopeFOV;
 	}

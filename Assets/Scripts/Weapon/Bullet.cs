@@ -34,9 +34,9 @@ public class Bullet : MonoBehaviour {
 			transform.forward = outgoingVec;
 
 			float scale = 1f - 0.5f * incomingDotnormal;
-			speed = scale * speed;
-			transform.localScale = new Vector3 (transform.localScale.x, transform.localScale.y, scale * transform.localScale.z);
-			rigid.velocity = outgoingVec * speed;
+			rigid.velocity = outgoingVec * scale * rigid.velocity.magnitude;
+			float lengthScale = rigid.velocity.magnitude / speed;
+			transform.localScale = new Vector3 (transform.localScale.x, transform.localScale.y, lengthScale * transform.localScale.z);
 		} else {
 			Destroy (gameObject);
 		}
