@@ -21,6 +21,12 @@ public class KeyboardEventHandler : MonoBehaviour {
 	public static event KeyboardCallback Q_Keyup;
 	public static event KeyboardCallback E_Keydown;
 	public static event KeyboardCallback E_Keyup;
+	public static event KeyboardCallback N_Keydown;
+	public static event KeyboardCallback M_Keydown;
+	public static event KeyboardCallback O_Keydown;
+
+	public static event KeyboardCallback Escape_Keydown;
+	public static event KeyboardCallback Return_Keydown;
 
 	public static event KeyboardCallback L_Shift;
 	public static event KeyboardCallback L_Control;
@@ -156,9 +162,40 @@ public class KeyboardEventHandler : MonoBehaviour {
 			}
 		}
 
+		if (Input.GetKeyDown ("n")) {
+			if (N_Keydown != null) {
+				N_Keydown ();
+			}
+		}
+
+		if (Input.GetKeyDown ("m")) {
+			if (M_Keydown != null) {
+				M_Keydown ();
+			}
+		}
+
+		if (Input.GetKeyDown ("o")) {
+			if (O_Keydown != null) {
+				O_Keydown ();
+			}
+		}
+
+
 		if (Input.GetKeyDown ("`")) {
 			if (Debug_Click != null) {
 				Debug_Click ();
+			}
+		}
+
+		if (Input.GetKeyDown ("escape")) {
+			if (Escape_Keydown != null) {
+				Escape_Keydown ();
+			}
+		}
+
+		if (Input.GetKeyDown ("return")) {
+			if (Return_Keydown != null) {
+				Return_Keydown ();
 			}
 		}
 

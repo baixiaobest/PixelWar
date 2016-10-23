@@ -40,13 +40,13 @@ public class AirplanePhysics : MonoBehaviour {
 	/// CONTROL ///
 	///////////////
 
-	public float maxThrust=15000f;
+	public float maxThrottle=15000f;
 	public float aileronTorqueCoefficient=300f;
 	public float elevatorTorqueCoefficient=100f;
 	public float rudderTorqueCoefficient=50f;
 
 	private Rigidbody rigid;
-	private float thrust;   // current aircraft thrust
+	private float throttle;   // current aircraft throttle
 
 	// these control how much of aileron,elevator,rudder and trim are set, value from -1 to 1;
 	private float aileronControl=0;
@@ -63,15 +63,17 @@ public class AirplanePhysics : MonoBehaviour {
 	private float bodyDragCoe;
 
 	void Start(){
-		thrust = 0;
+		throttle = 0;
 		Vector3 COM = centerOfMass.position - transform.position;
 		rigid = GetComponent<Rigidbody> ();
 		rigid.centerOfMass = COM;
+		// debug
+		DebugGUI.DebugGUICallback += debugGUI;
 	}
 
 	void FixedUpdate(){
-		Vector3 thrustVec = thrust * centerOfTrust.forward;
-		rigid.AddForceAtPosition (thrustVec, centerOfTrust.position);
+		Vector3 throttleVec = throttle * centerOfTrust.forward;
+		rigid.AddForceAtPosition (throttleVec, centerOfTrust.position);
 
 		// lift
 		float airflowSpeed = rigid.velocity.magnitude;
@@ -100,7 +102,7 @@ public class AirplanePhysics : MonoBehaviour {
 		rigid.AddForceAtPosition (wingDragVec, centerOfMass.position);
 
 		// drag of aircraft body
-		float airflowBodyAngle = Mathf.Min( Vector3.Angle (rigid.velocity, centerOfMass.forward), Vector3.Angle (rigid.velocity, -centerOfMass.forward));
+		float airflowBodyAngle = Mathf.Min (Vector3.Angle (rigid.velocity, centerOfMass.forward), Vector3.Angle (rigid.velocity, -centerOfMass.forward));
 		float bodyDragCoefficient = initialBodyDragCoefficient + airflowBodyAngle * bodyDragFactor;
 		float bodyDrag = bodyDragCoefficient * rigid.velocity.magnitude * rigid.velocity.magnitude;
 		Vector3 bodyDragVec = -bodyDrag * rigid.velocity.normalized;
@@ -118,32 +120,32 @@ public class AirplanePhysics : MonoBehaviour {
 		AOA = angleOfAttack;
 		dragCoe = dragCoefficient;
 		bodyDragCoe = bodyDragCoefficient;
-		Debug.DrawRay (centerOfTrust.position, 10f * thrustVec/maxThrust, Color.green);
-		Debug.DrawRay (centerOfLift.position, liftVec/500f, Color.green);
-		Debug.DrawRay (centerOfMass.position, wingDragVec/10f, Color.red);
+		Debug.DrawRay (centerOfTrust.position, 10f * throttleVec/maxThrottle, Color.green);
+		Debug.DrawRay (centerOfLift.position, liftVec / 500f, Color.green);
+		Debug.DrawRay (centerOfMass.position, wingDragVec / 10f, Color.red);
 		Debug.DrawRay (centerOfLift.position, rigid.velocity, Color.blue);
 		Debug.DrawRay (centerOfLift.position, centerOfLift.forward * 10f, Color.yellow);
 	}
 
-	public void SetThrust(float thrustPercentage){
-		thrust = maxThrust * Mathf.Clamp (thrustPercentage, 0, 1);
+	public void SetThrottle(float throttlePercentage){
+		throttle = maxThrottle * Mathf.Clamp (throttlePercentage, 0, 1);
 	}
 
-	public float GetCurrentThrustPercentage(){
-		return thrust/maxThrust;
+	public float GetCurrentThrottlePercentage(){
+		return throttle/maxThrottle;
 	}
 
-	// + roll right, - roll left
+	// - roll right, + roll left
 	public void SetAileron(float value){
 		aileronControl = Mathf.Clamp (value, -1, 1);
 	}
 
-	// + climb up, - pitch down
+	// - climb up, + pitch down
 	public void SetElevator(float value){
 		elevatorControl = Mathf.Clamp (value, -1, 1);
 	}
 
-	// + turn left, - turn right
+	// - turn left, + turn right
 	public void SetRudder(float value){
 		rudderControl = Mathf.Clamp (value, -1, 1);
 	}
@@ -152,12 +154,18 @@ public class AirplanePhysics : MonoBehaviour {
 		elevatorTrim = Mathf.Clamp (value, -1, 1);
 	}
 
-	void OnGUI(){
+	public float GetElevatorTrim(){
+		return elevatorTrim;
+	}
+
+	void debugGUI(){
 		GUIStyle style = new GUIStyle ();
 		style.fontSize = 30;
-		GUILayout.Label ("Thrust: " + thrust/maxThrust * 100 + "%", style);
+		GUILayout.Label ("Throttle: " + throttle/maxThrottle * 100 + "%", style);
+		GUILayout.Label ("Airspeed: " + rigid.velocity.magnitude, style);
 		GUILayout.Label ("Angle of Attack: "+AOA, style);
 		GUILayout.Label ("Wing Drag Coefficient: " + dragCoe, style);
 		GUILayout.Label ("Body Drag Coefficient: " + bodyDragCoe, style);
+		GUILayout.Label ("Elevator Trim: " + elevatorTrim, style);
 	}
 }

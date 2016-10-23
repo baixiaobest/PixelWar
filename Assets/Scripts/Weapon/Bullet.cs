@@ -16,7 +16,8 @@ public class Bullet : MonoBehaviour {
 		if (lifeCounter > lifeTime)
 			Destroy (gameObject);
 		lifeCounter += Time.deltaTime;
-		transform.forward = rigid.velocity.normalized;
+		if(rigid.velocity.magnitude != 0)
+			transform.forward = rigid.velocity.normalized;
 	}
 
 	public void Fire(){
@@ -34,9 +35,9 @@ public class Bullet : MonoBehaviour {
 			transform.forward = outgoingVec;
 
 			float scale = 1f - 0.5f * incomingDotnormal;
-			rigid.velocity = outgoingVec * scale * rigid.velocity.magnitude;
-			float lengthScale = rigid.velocity.magnitude / speed;
-			transform.localScale = new Vector3 (transform.localScale.x, transform.localScale.y, lengthScale * transform.localScale.z);
+			speed = scale * speed;
+			rigid.velocity = outgoingVec * speed;
+			transform.localScale = new Vector3 (transform.localScale.x, transform.localScale.y, scale * transform.localScale.z);
 		} else {
 			Destroy (gameObject);
 		}

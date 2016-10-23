@@ -18,7 +18,7 @@ public class Propeller : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		float thrust = plane.GetCurrentThrustPercentage ();
+		float thrust = plane.GetCurrentThrottlePercentage ();
 		if (thrust != 0) {
 			currSpin = idleSpinSpeed + (maxSpinSpeed - idleSpinSpeed) * thrust;
 			engineSound.pitch = 1 + 2 * thrust;

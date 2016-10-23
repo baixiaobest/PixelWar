@@ -3,12 +3,13 @@ using System.Collections;
 
 public class AirplaneControl : MonoBehaviour {
 
-	private float thrust;
 	private AirplanePhysics airplane;
+	private AutoPilot autoPilot;
 
 	// Use this for initialization
 	void Start () {
 		airplane = GetComponent<AirplanePhysics> ();
+		autoPilot = GetComponent<AutoPilot> ();
 		KeyboardEventHandler.D_Right += RollRight;
 		KeyboardEventHandler.A_Left += RollLeft;
 		KeyboardEventHandler.S_Backward += PitchUp;
@@ -23,20 +24,23 @@ public class AirplaneControl : MonoBehaviour {
 		KeyboardEventHandler.D_Keyup += RollZero;
 		KeyboardEventHandler.Q_Keyup += RudderZero;
 		KeyboardEventHandler.E_Keyup += RudderZero;
+		KeyboardEventHandler.M_Keydown += ElevatorTrimUp;
+		KeyboardEventHandler.N_Keydown += ElevatorTrimDown;
+		KeyboardEventHandler.O_Keydown += AutopilotFlatAttitude;
 	}
 
 	private void ThrustUp(){
-		thrust += 0.01f;
+		float thrust = airplane.GetCurrentThrottlePercentage() + 0.01f;
 		if (thrust > 1)
 			thrust = 1;
-		airplane.SetThrust (thrust);
+		airplane.SetThrottle (thrust);
 	}
 
 	private void ThrustDown(){
-		thrust -= 0.01f;
+		float thrust = airplane.GetCurrentThrottlePercentage() - 0.01f;
 		if (thrust < 0)
 			thrust = 0;
-		airplane.SetThrust (thrust);
+		airplane.SetThrottle (thrust);
 	}
 
 	private void RollRight(){
@@ -73,5 +77,20 @@ public class AirplaneControl : MonoBehaviour {
 
 	private void RudderZero(){
 		airplane.SetRudder (0f);
+	}
+
+	private void ElevatorTrimUp(){
+		airplane.SetElevatorTrim (airplane.GetElevatorTrim () + 0.01f);
+	}
+
+	private void ElevatorTrimDown(){
+		airplane.SetElevatorTrim (airplane.GetElevatorTrim () - 0.01f);
+	}
+
+	private void AutopilotFlatAttitude(){
+		if (autoPilot.GetAutopilotMode () == AutoPilot.AutopilotMode.DISABLED)
+			autoPilot.EngageAutopilot (AutoPilot.AutopilotMode.ALTITUDE_HOLD);
+		else
+			autoPilot.EngageAutopilot (AutoPilot.AutopilotMode.DISABLED);
 	}
 }
