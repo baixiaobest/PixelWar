@@ -6,7 +6,6 @@ using BehaviorDesigner.Runtime.Tasks;
 public class FireGun : Action {
 	public bool fireOneRound=true;  // only fire one bullet
 	public SharedFloat fireForSeconds; // fire the weapon for this many seconds
-
 	AIWeaponControl weaponControl;
 
 	public override void OnStart ()

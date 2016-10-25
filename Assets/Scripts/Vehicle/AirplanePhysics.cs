@@ -109,9 +109,9 @@ public class AirplanePhysics : MonoBehaviour {
 		rigid.AddForceAtPosition (bodyDragVec, centerOfBodyDrag.position);
 
 
-		Vector3 aileronTorque = aileronControl * aileronTorqueCoefficient * airflowSpeed * transform.forward;
-		Vector3 elevatorTorque = (elevatorControl + MAX_TRIM_PERCENTAGE * elevatorTrim) * elevatorTorqueCoefficient * airflowSpeed * transform.right;
-		Vector3 rudderTorque = rudderControl * rudderTorqueCoefficient * airflowSpeed * transform.up;
+		Vector3 aileronTorque = aileronControl * aileronTorqueCoefficient * airflowSpeed * centerOfMass.forward;
+		Vector3 elevatorTorque = (elevatorControl + MAX_TRIM_PERCENTAGE * elevatorTrim) * elevatorTorqueCoefficient * airflowSpeed * centerOfMass.right;
+		Vector3 rudderTorque = rudderControl * rudderTorqueCoefficient * airflowSpeed * centerOfMass.up;
 		rigid.AddTorque (aileronTorque);
 		rigid.AddTorque (elevatorTorque);
 		rigid.AddTorque (rudderTorque);

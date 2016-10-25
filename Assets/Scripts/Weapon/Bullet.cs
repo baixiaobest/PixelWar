@@ -4,6 +4,7 @@ using System.Collections;
 public class Bullet : MonoBehaviour {
 	public float speed;
 	public float lifeTime;
+	public float gravityEffect=1;
 
 	private float lifeCounter = 0;
 	private Rigidbody rigid;
@@ -20,12 +21,19 @@ public class Bullet : MonoBehaviour {
 			transform.forward = rigid.velocity.normalized;
 	}
 
+	void FixedUpdate(){
+		Vector3 antiGravity = -Physics.gravity * (1 - gravityEffect);
+		rigid.AddForce (antiGravity);
+	}
+
 	public void Fire(){
 		GetComponent<Rigidbody> ().velocity = transform.forward * speed;
 	}
 
 	void OnCollisionEnter(Collision collision){
-		if (collision.gameObject.CompareTag ("Floor") || collision.gameObject.CompareTag ("Obstacle")) {
+		if(collision.gameObject.CompareTag ("Player") || collision.gameObject.CompareTag ("Enemy")){
+			Destroy (gameObject);
+		}else {
 			ContactPoint contactPt = collision.contacts [0];
 			Vector3 incomingVec = -transform.forward;
 			// reflect incoming vector against normal of contact point
@@ -38,8 +46,6 @@ public class Bullet : MonoBehaviour {
 			speed = scale * speed;
 			rigid.velocity = outgoingVec * speed;
 			transform.localScale = new Vector3 (transform.localScale.x, transform.localScale.y, scale * transform.localScale.z);
-		} else {
-			Destroy (gameObject);
 		}
 	}
 }

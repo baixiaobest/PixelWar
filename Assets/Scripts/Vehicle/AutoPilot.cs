@@ -8,11 +8,13 @@ public class AutoPilot : MonoBehaviour {
 	public float KpRoll;
 	public float KdRoll;
 	public float KpAltitudeToClimbRate;
+	public float KiAltitudeToClimbRate;
 	public float KpClimbRateToPitch;
 
 	public float MAX_CLIMB_RATE=15f;              // maximum climb rate in altitude mode
 	public float MAX_CLIMB_PITCH=45f;
 	public float PITCH_INTEGRAL_MAX = 0.05f;  // integral of pitch in unit of degrees * second
+	public float MAX_CLIMB_RATE_INTEGRAL = 5f;
 
 	public enum AutopilotMode{DISABLED, ATTITUDE_FLAT, ALTITUDE_HOLD};
 
@@ -27,7 +29,8 @@ public class AutoPilot : MonoBehaviour {
 	private float climbRate = 0;
 
 	private float pitchIntegral = 0f;
-	private float desiredAltitude=0;
+	private float climbRateIntegral = 0f;
+	private float desiredAltitude = 0f;
 
 	void Start(){
 		plane = GetComponent<AirplanePhysics> ();
@@ -41,7 +44,7 @@ public class AutoPilot : MonoBehaviour {
 		case AutopilotMode.DISABLED:
 			break;
 		case AutopilotMode.ATTITUDE_FLAT:
-			AttitudeControl (0,0);
+			AttitudeControl (0,0,ROLL_SMALL_ANGLE);
 			break;
 		case AutopilotMode.ALTITUDE_HOLD:
 			AltitudeControl (desiredAltitude);
@@ -50,6 +53,8 @@ public class AutoPilot : MonoBehaviour {
 	}
 
 	public void EngageAutopilot(AutopilotMode mode){
+		pitchIntegral = 0;
+		climbRateIntegral = 0;
 		autopilotMode = mode;
 		if (autopilotMode == AutopilotMode.ALTITUDE_HOLD) {
 			desiredAltitude = transform.position.y;
@@ -81,13 +86,13 @@ public class AutoPilot : MonoBehaviour {
 		climbRate = rigid.velocity.y;
 	}
 
-	private void AttitudeControl(float desiredPitch, float desiredRoll){
+	private void AttitudeControl(float desiredPitch, float desiredRoll, float rollSmallAngle){
 		float rollError = desiredRoll-roll;
 		float rollVelocity = Mathf.Rad2Deg * rigid.angularVelocity.z;
 		float rollPercentage = rollError * KpRoll - rollVelocity * KdRoll;
 		plane.SetAileron (rollPercentage);
 
-		if (Mathf.Abs (roll) < ROLL_SMALL_ANGLE) {
+		if (Mathf.Abs (roll) < rollSmallAngle) {
 			float pitchError = -(desiredPitch - pitch);
 			float pitchVelocity = Mathf.Rad2Deg * rigid.angularVelocity.x;
 			pitchIntegral = Mathf.Clamp (pitchIntegral + KiPitch * pitchError * Time.fixedDeltaTime, -PITCH_INTEGRAL_MAX, PITCH_INTEGRAL_MAX);
@@ -100,12 +105,13 @@ public class AutoPilot : MonoBehaviour {
 
 		if (Mathf.Abs (roll) < ROLL_SMALL_ANGLE) {
 			float altitudeError = desiredAltitude - transform.position.y;
-			float desiredClimbRate = Mathf.Clamp (altitudeError * KpAltitudeToClimbRate, -MAX_CLIMB_RATE, MAX_CLIMB_RATE);
+			climbRateIntegral = Mathf.Clamp (climbRateIntegral + KiAltitudeToClimbRate * altitudeError * Time.fixedDeltaTime, -MAX_CLIMB_RATE_INTEGRAL, MAX_CLIMB_RATE_INTEGRAL);
+			float desiredClimbRate = Mathf.Clamp (altitudeError * KpAltitudeToClimbRate + climbRateIntegral, -MAX_CLIMB_RATE, MAX_CLIMB_RATE);
 			float climbRateError = desiredClimbRate - climbRate;
 			float newPitch = Mathf.Clamp (pitch + KpClimbRateToPitch * climbRateError, -MAX_CLIMB_PITCH, MAX_CLIMB_PITCH);
-			AttitudeControl (newPitch, 0);
+			AttitudeControl (newPitch, 0, ROLL_SMALL_ANGLE);
 		} else {
-			AttitudeControl (0, 0);
+			AttitudeControl (0, 0, ROLL_SMALL_ANGLE);
 		}
 	}
 
@@ -117,6 +123,7 @@ public class AutoPilot : MonoBehaviour {
 		GUILayout.Label ("Roll: " + roll, style);
 		GUILayout.Label ("Yaw: " + yaw, style);
 		GUILayout.Label ("Altitude: " + transform.position.y, style);
+		GUILayout.Label ("Desired Altitude: " + desiredAltitude, style);
 		GUILayout.Label ("Climb Rate: " + climbRate, style);
 	}
 }

@@ -20,6 +20,7 @@ public class Weapon : MonoBehaviour {
 
 	private float lastFireTime=0;
 	private AudioSource Audio;
+	private bool usingScope = false;
 
 	public void Start(){
 		GunOriginalRelativePosition = transform.localPosition;
@@ -72,11 +73,15 @@ public class Weapon : MonoBehaviour {
 
 	public void UseScope ()
 	{
-		GunInitialRelativePosition = GunOriginalRelativePosition;
-		GunOriginalRelativePosition = new Vector3 (GunOriginalRelativePosition.x-alignmentVec.x, GunOriginalRelativePosition.y-alignmentVec.y, GunOriginalRelativePosition.z);
+		if (!usingScope) {
+			GunInitialRelativePosition = GunOriginalRelativePosition;
+			GunOriginalRelativePosition = new Vector3 (GunOriginalRelativePosition.x - alignmentVec.x, GunOriginalRelativePosition.y - alignmentVec.y, GunOriginalRelativePosition.z);
+		}
+		usingScope = true;
 	}
 
 	public void UnScope(){
+		usingScope = false;
 		GunOriginalRelativePosition = GunInitialRelativePosition;
 		transform.position = GunOriginalRelativePosition;
 	}

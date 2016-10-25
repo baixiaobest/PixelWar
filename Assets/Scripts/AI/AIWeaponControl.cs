@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class AIWeaponControl : MonoBehaviour {
-	public GameObject activeWeapon;
+	public Weapon [] activeWeapons;
 
 
 	private float timer=0;
@@ -11,16 +11,19 @@ public class AIWeaponControl : MonoBehaviour {
 		if (timer > 0)
 			timer -= Time.deltaTime;
 		if (timer <= 0) {
-			activeWeapon.GetComponent<Weapon> ().TriggerUp ();
+			for(int i=0; i<activeWeapons.Length; i++)
+				activeWeapons[i].TriggerUp ();
 		}
 	}
 
 	public void Fire(){
-		activeWeapon.GetComponent<Weapon> ().Fire ();
+		for(int i=0; i<activeWeapons.Length; i++)
+			activeWeapons[i].Fire ();
 	}
 
 	public void FireForTime(float time){
 		timer = time;
-		activeWeapon.GetComponent<Weapon> ().TriggerPressed ();
+		for(int i=0; i<activeWeapons.Length; i++)
+			activeWeapons[i].TriggerPressed ();
 	}
 }
