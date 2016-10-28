@@ -3,6 +3,7 @@ using System.Collections;
 
 public class Bullet : MonoBehaviour {
 	public float speed;
+	public int damage;
 	public float lifeTime;
 	public float gravityEffect=1;
 
@@ -34,18 +35,30 @@ public class Bullet : MonoBehaviour {
 		if(collision.gameObject.CompareTag ("Player") || collision.gameObject.CompareTag ("Enemy")){
 			Destroy (gameObject);
 		}else {
-			ContactPoint contactPt = collision.contacts [0];
-			Vector3 incomingVec = -transform.forward;
-			// reflect incoming vector against normal of contact point
-			float incomingDotnormal = Vector3.Dot (incomingVec, contactPt.normal);
-			Vector3 outgoingVec = incomingVec + 2 * (contactPt.normal * incomingDotnormal - incomingVec);
-			transform.position = contactPt.point;
-			transform.forward = outgoingVec;
-
-			float scale = 1f - 0.5f * incomingDotnormal;
-			speed = scale * speed;
-			rigid.velocity = outgoingVec * speed;
-			transform.localScale = new Vector3 (transform.localScale.x, transform.localScale.y, scale * transform.localScale.z);
+			Reflect (collision);
 		}
+		DealDamage (collision.gameObject);
+	}
+
+	private void DealDamage(GameObject collidedObject){
+		Health health = collidedObject.GetComponent<Health> ();
+		if (health != null) {
+			health.TakeDamage (damage);
+		}
+	}
+
+	private void Reflect(Collision collision){
+		ContactPoint contactPt = collision.contacts [0];
+		Vector3 incomingVec = -transform.forward;
+		// reflect incoming vector against normal of contact point
+		float incomingDotnormal = Vector3.Dot (incomingVec, contactPt.normal);
+		Vector3 outgoingVec = incomingVec + 2 * (contactPt.normal * incomingDotnormal - incomingVec);
+		transform.position = contactPt.point;
+		transform.forward = outgoingVec;
+
+		float scale = 1f - 0.5f * incomingDotnormal;
+		speed = scale * speed;
+		rigid.velocity = outgoingVec * speed;
+		transform.localScale = new Vector3 (transform.localScale.x, transform.localScale.y, scale * transform.localScale.z);
 	}
 }

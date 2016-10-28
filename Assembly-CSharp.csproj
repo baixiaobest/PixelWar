@@ -586,6 +586,8 @@
      <Compile Include="Assets\Scripts\Camera\AirplaneCamera.cs" />
      <Compile Include="Assets\Scripts\CustomTasks\Action\AimTurretToTarget.cs" />
      <Compile Include="Assets\Scripts\CustomTasks\Action\FireGun.cs" />
+     <Compile Include="Assets\Scripts\CustomTasks\Action\ParticleEffect.cs" />
+     <Compile Include="Assets\Scripts\CustomTasks\Condition\IsDead.cs" />
      <Compile Include="Assets\Scripts\CustomTasks\Condition\PlayerWithinRange.cs" />
      <Compile Include="Assets\Scripts\CustomTasks\Condition\PlayerWithinSight.cs" />
      <Compile Include="Assets\Scripts\CustomTasks\Condition\TargetLocked.cs" />
@@ -593,6 +595,7 @@
      <Compile Include="Assets\Scripts\CustomTasks\Debug\GetContainerObject.cs" />
      <Compile Include="Assets\Scripts\Event\KeyboardEventHandler.cs" />
      <Compile Include="Assets\Scripts\Event\ResetAirplane.cs" />
+     <Compile Include="Assets\Scripts\Health\Health.cs" />
      <Compile Include="Assets\Scripts\Player\AircraftWeaponControl.cs" />
      <Compile Include="Assets\Scripts\Player\PlayerMovement.cs" />
      <Compile Include="Assets\Scripts\Player\WeaponControl.cs" />

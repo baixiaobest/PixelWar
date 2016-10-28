@@ -72,7 +72,7 @@ public class AirplanePhysics : MonoBehaviour {
 	}
 
 	void FixedUpdate(){
-		Vector3 throttleVec = throttle * centerOfTrust.forward;
+		Vector3 throttleVec = throttle * centerOfMass.forward;
 		rigid.AddForceAtPosition (throttleVec, centerOfTrust.position);
 
 		// lift
