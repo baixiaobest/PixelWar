@@ -1,18 +1,17 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Vehicle/AirplanePhysics.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Health/Health.cs">
     <Files>
-      <File FileName="Assets/Scripts/Vehicle/AirplaneControl.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Vehicle/AirplanePhysics.cs" Line="136" Column="1" />
-      <File FileName="Assets/Scripts/Event/KeyboardEventHandler.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Camera/AirplaneCamera.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Vehicle/AirplaneControl.cs" Line="92" Column="70" />
+      <File FileName="Assets/Scripts/Vehicle/AirplanePhysics.cs" Line="71" Column="41" />
+      <File FileName="Assets/Scripts/Event/ResetAirplane.cs" Line="24" Column="38" />
+      <File FileName="Assets/Scripts/Health/Health.cs" Line="22" Column="23" />
+      <File FileName="Assets/Scripts/Weapon/Bullet.cs" Line="46" Column="31" />
+      <File FileName="Assets/Scripts/CustomTasks/Condition/IsDead.cs" Line="8" Column="15" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore>
-      <Breakpoint file="/Users/baixiao/Desktop/PixelWar/Assets/Scripts/AI/AIWeaponControl.cs" line="23" column="1" />
-      <Breakpoint file="/Users/baixiao/Desktop/PixelWar/Assets/Scripts/Vehicle/AirplanePhysics.cs" line="68" column="1" />
-    </BreakpointStore>
+    <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
 </Properties>
