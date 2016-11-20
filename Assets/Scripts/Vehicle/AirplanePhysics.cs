@@ -72,7 +72,7 @@ public class AirplanePhysics : MonoBehaviour {
 	}
 
 	void FixedUpdate(){
-		Vector3 throttleVec = throttle * centerOfMass.forward;
+		Vector3 throttleVec = throttle * centerOfTrust.forward;
 		rigid.AddForceAtPosition (throttleVec, centerOfTrust.position);
 
 		// lift
@@ -116,7 +116,7 @@ public class AirplanePhysics : MonoBehaviour {
 		rigid.AddTorque (elevatorTorque);
 		rigid.AddTorque (rudderTorque);
 
-		// debug
+		//debug
 		AOA = angleOfAttack;
 		dragCoe = dragCoefficient;
 		bodyDragCoe = bodyDragCoefficient;

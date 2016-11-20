@@ -604,6 +604,7 @@
      <Compile Include="Assets\Scripts\Vehicle\AutoPilot.cs" />
      <Compile Include="Assets\Scripts\Vehicle\Cessna\Propeller.cs" />
      <Compile Include="Assets\Scripts\Vehicle\DebugGUI.cs" />
+     <Compile Include="Assets\Scripts\Vehicle\MountVehicleTrigger.cs" />
      <Compile Include="Assets\Scripts\Weapon\Bullet.cs" />
      <Compile Include="Assets\Scripts\Weapon\SMG.cs" />
      <Compile Include="Assets\Scripts\Weapon\Weapon.cs" />

@@ -10,6 +10,9 @@ public class AirplaneControl : MonoBehaviour {
 	void Start () {
 		airplane = GetComponent<AirplanePhysics> ();
 		autoPilot = GetComponent<AutoPilot> ();
+	}
+
+	public void RegisterControl(){
 		KeyboardEventHandler.D_Right += RollRight;
 		KeyboardEventHandler.A_Left += RollLeft;
 		KeyboardEventHandler.S_Backward += PitchUp;
@@ -27,6 +30,26 @@ public class AirplaneControl : MonoBehaviour {
 		KeyboardEventHandler.M_Keydown += ElevatorTrimUp;
 		KeyboardEventHandler.N_Keydown += ElevatorTrimDown;
 		KeyboardEventHandler.O_Keydown += AutopilotFlatAttitude;
+	}
+
+	public void UnregisterControl(){
+		KeyboardEventHandler.D_Right -= RollRight;
+		KeyboardEventHandler.A_Left -= RollLeft;
+		KeyboardEventHandler.S_Backward -= PitchUp;
+		KeyboardEventHandler.W_Forward -= PitchDown;
+		KeyboardEventHandler.L_Shift -= ThrustUp;
+		KeyboardEventHandler.L_Control -= ThrustDown;
+		KeyboardEventHandler.Q_Keydown -= RudderLeft;
+		KeyboardEventHandler.E_Keydown -= RudderRight;
+		KeyboardEventHandler.W_Keyup -= PitchZero;
+		KeyboardEventHandler.S_Keyup -= PitchZero;
+		KeyboardEventHandler.A_Keyup -= RollZero;
+		KeyboardEventHandler.D_Keyup -= RollZero;
+		KeyboardEventHandler.Q_Keyup -= RudderZero;
+		KeyboardEventHandler.E_Keyup -= RudderZero;
+		KeyboardEventHandler.M_Keydown -= ElevatorTrimUp;
+		KeyboardEventHandler.N_Keydown -= ElevatorTrimDown;
+		KeyboardEventHandler.O_Keydown -= AutopilotFlatAttitude;
 	}
 
 	private void ThrustUp(){

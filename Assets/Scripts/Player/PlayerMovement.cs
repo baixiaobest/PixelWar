@@ -11,7 +11,7 @@ public class PlayerMovement : MonoBehaviour {
 	public LayerMask groundMask;
 	public Transform cameraPivot;
 
-	enum MovementMode {Ground, Air};
+	public enum MovementMode {Ground, Air};
 
 	private Vector3 speedVec;
 	private MovementMode movementMode=MovementMode.Ground;
@@ -101,8 +101,8 @@ public class PlayerMovement : MonoBehaviour {
 	}
 
 	private void Jump(){
-		if(movementMode == MovementMode.Ground)
-			rigid.velocity += Vector3.up * jumpSpeed;
+		if (movementMode == MovementMode.Ground)
+			rigid.velocity = new Vector3 (rigid.velocity.x, jumpSpeed, rigid.velocity.z);//Vector3.up * jumpSpeed;
 	}
 
 	void OnCollisionStay(Collision col){
@@ -117,4 +117,7 @@ public class PlayerMovement : MonoBehaviour {
 		}
 	}
 
+	public void SetMovementMode(MovementMode mode){
+		movementMode = mode;
+	}
 }
