@@ -2,15 +2,15 @@
 using System.Collections;
 
 public class MountVehicleTrigger : MonoBehaviour {
-	private Camera vehicleCamera;
-	private AudioListener vehicleAudioListener;
+	public Camera vehicleCamera;
+	public AudioListener vehicleAudioListener;
 	private GameObject player;
 	private bool playerInVehicle = false;
 	private bool playerInTrigger = false;
 
 	void Start () {
-		vehicleCamera = this.transform.parent.GetComponentInChildren<Camera> ();
-		vehicleAudioListener = this.transform.parent.GetComponentInChildren<AudioListener> ();
+		//vehicleCamera = this.transform.parent.GetComponentInChildren<Camera> ();
+		//vehicleAudioListener = this.transform.parent.GetComponentInChildren<AudioListener> ();
 		KeyboardEventHandler.F_Keydown += MountDismountVehicle;
 	}
 
@@ -20,9 +20,7 @@ public class MountVehicleTrigger : MonoBehaviour {
 			player.SetActive (false);
 			vehicleCamera.enabled = true;
 			vehicleAudioListener.enabled = true;
-			if (transform.parent.CompareTag ("Airplane")) {
-				AirplaneSetActive (true);
-			}
+			transform.parent.GetComponent<ControlRegistration> ().Register ();
 		}else if (playerInVehicle) {
 			playerInVehicle = false;
 			player.SetActive (true);
@@ -30,20 +28,7 @@ public class MountVehicleTrigger : MonoBehaviour {
 			player.GetComponent<PlayerMovement> ().SetMovementMode (PlayerMovement.MovementMode.Air);
 			vehicleCamera.enabled = false;
 			vehicleAudioListener.enabled = false;
-			if (transform.parent.CompareTag ("Airplane")) {
-				AirplaneSetActive (false);
-			}
-		}
-	}
-
-	void AirplaneSetActive(bool enabled){
-		GameObject airplane = transform.parent.gameObject;
-		if (enabled) {
-			airplane.GetComponent<AircraftWeaponControl> ().RegisterControl();
-			airplane.GetComponent<AirplaneControl> ().RegisterControl();
-		} else {
-			airplane.GetComponent<AircraftWeaponControl> ().UnregisterControl();
-			airplane.GetComponent<AirplaneControl> ().UnregisterControl();
+			transform.parent.GetComponent<ControlRegistration> ().Unregister ();
 		}
 	}
 	

@@ -10,6 +10,8 @@ public class AirplaneControl : MonoBehaviour {
 	void Start () {
 		airplane = GetComponent<AirplanePhysics> ();
 		autoPilot = GetComponent<AutoPilot> ();
+		GetComponent<ControlRegistration> ().RegisterControl += RegisterControl;
+		GetComponent<ControlRegistration> ().UnregisterControl += UnregisterControl;
 	}
 
 	public void RegisterControl(){
