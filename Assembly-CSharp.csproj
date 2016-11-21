@@ -584,6 +584,7 @@
      <Compile Include="Assets\Behavior Designer\Runtime\Variables\SharedVector4.cs" />
      <Compile Include="Assets\Scripts\AI\AIWeaponControl.cs" />
      <Compile Include="Assets\Scripts\Camera\AirplaneCamera.cs" />
+     <Compile Include="Assets\Scripts\Camera\VehicleCamera.cs" />
      <Compile Include="Assets\Scripts\CustomTasks\Action\AimTurretToTarget.cs" />
      <Compile Include="Assets\Scripts\CustomTasks\Action\FireGun.cs" />
      <Compile Include="Assets\Scripts\CustomTasks\Action\ParticleEffect.cs" />
@@ -607,6 +608,7 @@
      <Compile Include="Assets\Scripts\Vehicle\DebugGUI.cs" />
      <Compile Include="Assets\Scripts\Vehicle\GroundVehicle\TankControl.cs" />
      <Compile Include="Assets\Scripts\Vehicle\GroundVehicle\TankPhysics.cs" />
+     <Compile Include="Assets\Scripts\Vehicle\GroundVehicle\TankTurret.cs" />
      <Compile Include="Assets\Scripts\Vehicle\MountVehicleTrigger.cs" />
      <Compile Include="Assets\Scripts\Weapon\Bullet.cs" />
      <Compile Include="Assets\Scripts\Weapon\SMG.cs" />
