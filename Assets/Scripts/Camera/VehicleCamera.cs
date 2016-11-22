@@ -4,6 +4,7 @@ using System.Collections;
 public class VehicleCamera : MonoBehaviour {
 	public Camera cam;
 	public float sensitivity;
+	public Transform cameraLookat;
 	private Vector3 initialPos;
 	private Vector3 relativePos;
 
@@ -29,11 +30,13 @@ public class VehicleCamera : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		cam.transform.position = transform.position + relativePos;
+		cam.transform.forward = (cameraLookat.position - cam.transform.position);
 	}
 
 	void MouseMoved(float x, float y){
-		cam.transform.RotateAround (transform.position, Vector3.up, x * sensitivity);
-		cam.transform.RotateAround (transform.position, cam.transform.right, -y * sensitivity);
-		relativePos = cam.transform.position - transform.position;
+//		cam.transform.RotateAround (cam.transform.position, Vector3.up, x * sensitivity);
+//		cam.transform.RotateAround (cam.transform.position, cam.transform.right, -y * sensitivity);
+		relativePos = Quaternion.AngleAxis(x*sensitivity, Vector3.up) * relativePos;
+		relativePos = Quaternion.AngleAxis (-y * sensitivity, cam.transform.right) * relativePos;
 	}
 }

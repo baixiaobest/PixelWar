@@ -598,6 +598,7 @@
      <Compile Include="Assets\Scripts\Event\ResetAirplane.cs" />
      <Compile Include="Assets\Scripts\Health\Health.cs" />
      <Compile Include="Assets\Scripts\Player\AircraftWeaponControl.cs" />
+     <Compile Include="Assets\Scripts\Player\GroundVehicleWeaponControl.cs" />
      <Compile Include="Assets\Scripts\Player\PlayerMovement.cs" />
      <Compile Include="Assets\Scripts\Player\WeaponControl.cs" />
      <Compile Include="Assets\Scripts\Vehicle\Aiplane\AirplaneControl.cs" />
@@ -611,6 +612,7 @@
      <Compile Include="Assets\Scripts\Vehicle\GroundVehicle\TankTurret.cs" />
      <Compile Include="Assets\Scripts\Vehicle\MountVehicleTrigger.cs" />
      <Compile Include="Assets\Scripts\Weapon\Bullet.cs" />
+     <Compile Include="Assets\Scripts\Weapon\Cannon.cs" />
      <Compile Include="Assets\Scripts\Weapon\SMG.cs" />
      <Compile Include="Assets\Scripts\Weapon\Weapon.cs" />
      <None Include="Assets\Standard Assets\Environment\Water\Water4\Shaders\FXWater4Simple.shader" />

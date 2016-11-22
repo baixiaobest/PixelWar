@@ -18,7 +18,7 @@ public class Weapon : MonoBehaviour {
 	private Vector3 GunInitialRelativePosition;
 	private Vector3 alignmentVec;
 
-	private float lastFireTime=0;
+	private float lastFireTime;
 	private AudioSource Audio;
 	private bool usingScope = false;
 
@@ -28,6 +28,7 @@ public class Weapon : MonoBehaviour {
 		recoilTimer = recoilTime;
 		alignmentVec = transform.localPosition + Vector3.Scale(scopeAlignment.transform.localPosition, transform.localScale);
 		Audio = GetComponent<AudioSource> ();
+		lastFireTime = -fireInterval;
 	}
 
 	void Update(){
