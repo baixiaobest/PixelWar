@@ -12,8 +12,8 @@ public class TankPhysics : MonoBehaviour {
 	enum MovementMode {Ground, Air};
 
 	private Rigidbody rigid;
-	private float acceleration=0;
 	private MovementMode movementMode = MovementMode.Ground;
+	private float acceleration=0;
 	private float tankTurnSpeed=0;
 
 	void Start(){
@@ -63,5 +63,13 @@ public class TankPhysics : MonoBehaviour {
 
 	void OnCollisionExit(Collision col){
 		movementMode = MovementMode.Air;
+	}
+
+	public float GetAccelerationPercentage(){
+		return acceleration / maximumAcceleration;
+	}
+
+	public float GetSpeedPercentage(){
+		return rigid.velocity.magnitude / maximumSpeed;
 	}
 }

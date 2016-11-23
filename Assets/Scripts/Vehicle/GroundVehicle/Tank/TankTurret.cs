@@ -11,9 +11,11 @@ public class TankTurret : MonoBehaviour {
 	public float maxDownAngle;
 
 	void LateUpdate () {
+		// by removing up component of where camera is looking at
+		// you get where turret should look at
 		Vector3 turretLookat = cam.transform.forward - Vector3.Dot (cam.transform.forward, turret.up) * turret.up;
 		float turretAngle = Vector3.Angle (turretLookat, turret.forward);
-		float sign = Mathf.Sign (Vector3.Dot (Vector3.Cross (turret.forward, turretLookat), turret.up));
+		float sign = Mathf.Sign (Vector3.Dot (Vector3.Cross (turret.forward, turretLookat), turret.up));  // direction of turret rotation
 		if (turretAngle > 3f) {
 			turret.RotateAround (turret.position, turret.up, sign * turretTurningSpeed * Time.deltaTime);
 		} else {
@@ -21,6 +23,8 @@ public class TankTurret : MonoBehaviour {
 		}
 			
 		if(turretAngle < 60){
+			// by removing left or right component of where camera is looking at
+			// you get where main gun should look at
 			Vector3 mainGunLookat = cam.transform.forward - Vector3.Dot (cam.transform.forward, turret.right) * turret.right;
 			float mainGunAngle = Vector3.Angle (turret.up, mainGunLookat);
 			if (mainGunAngle < 90 - maxUpAngle) {

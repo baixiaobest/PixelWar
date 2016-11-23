@@ -607,9 +607,10 @@
      <Compile Include="Assets\Scripts\Vehicle\Aiplane\Cessna\Propeller.cs" />
      <Compile Include="Assets\Scripts\Vehicle\ControlRegistration.cs" />
      <Compile Include="Assets\Scripts\Vehicle\DebugGUI.cs" />
-     <Compile Include="Assets\Scripts\Vehicle\GroundVehicle\TankControl.cs" />
-     <Compile Include="Assets\Scripts\Vehicle\GroundVehicle\TankPhysics.cs" />
-     <Compile Include="Assets\Scripts\Vehicle\GroundVehicle\TankTurret.cs" />
+     <Compile Include="Assets\Scripts\Vehicle\GroundVehicle\Tank\TankControl.cs" />
+     <Compile Include="Assets\Scripts\Vehicle\GroundVehicle\Tank\TankEngineSound.cs" />
+     <Compile Include="Assets\Scripts\Vehicle\GroundVehicle\Tank\TankPhysics.cs" />
+     <Compile Include="Assets\Scripts\Vehicle\GroundVehicle\Tank\TankTurret.cs" />
      <Compile Include="Assets\Scripts\Vehicle\MountVehicleTrigger.cs" />
      <Compile Include="Assets\Scripts\Weapon\Bullet.cs" />
      <Compile Include="Assets\Scripts\Weapon\Cannon.cs" />

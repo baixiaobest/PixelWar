@@ -3,6 +3,8 @@ using System.Collections;
 
 public class GroundVehicleWeaponControl : MonoBehaviour {
 	public GameObject mainGun;
+	public float scopeFOV = 40;
+	public float unscopeFOV = 60;
 
 	public void Start(){
 		GetComponent<ControlRegistration> ().RegisterControl += RegisterControl;

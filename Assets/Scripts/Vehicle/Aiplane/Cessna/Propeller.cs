@@ -5,14 +5,14 @@ public class Propeller : MonoBehaviour {
 	public float idleSpinSpeed;
 	public float maxSpinSpeed;
 	public float engineStopTime;
+	public AirplanePhysics plane;
 
-	private AirplanePhysics plane;
 	private AudioSource engineSound;
 	private float currSpin = 0;
 
 	// Use this for initialization
 	void Start () {
-		plane = transform.parent.GetComponent<AirplanePhysics> ();
+		//plane = transform.parent.GetComponent<AirplanePhysics> ();
 		engineSound = GetComponent<AudioSource> ();
 	}
 	
