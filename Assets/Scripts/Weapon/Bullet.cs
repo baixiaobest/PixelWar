@@ -10,7 +10,7 @@ public class Bullet : MonoBehaviour {
 	private float lifeCounter = 0;
 	private Rigidbody rigid;
 
-	void Start(){
+	protected virtual void Start(){
 		rigid = GetComponent<Rigidbody> ();
 	}
 
@@ -37,13 +37,13 @@ public class Bullet : MonoBehaviour {
 		}else {
 			Reflect (collision);
 		}
-		DealDamage (collision.gameObject);
+		DealDamage (collision.gameObject, damage);
 	}
 
-	private void DealDamage(GameObject collidedObject){
+	protected void DealDamage(GameObject collidedObject, int damageValue){
 		Health health = collidedObject.GetComponent<Health> ();
 		if (health != null) {
-			health.TakeDamage (damage);
+			health.TakeDamage (damageValue);
 		}
 	}
 
