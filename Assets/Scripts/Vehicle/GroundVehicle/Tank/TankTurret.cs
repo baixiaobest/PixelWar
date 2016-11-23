@@ -10,6 +10,7 @@ public class TankTurret : MonoBehaviour {
 	public float maxUpAngle;
 	public float maxDownAngle;
 
+	// use late update because turret should update later than update of tank body
 	void LateUpdate () {
 		// by removing up component of where camera is looking at
 		// you get where turret should look at

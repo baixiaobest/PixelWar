@@ -14,7 +14,7 @@ public class MountVehicleTrigger : MonoBehaviour {
 		KeyboardEventHandler.F_Keydown += MountDismountVehicle;
 	}
 
-	void MountDismountVehicle(){
+	public void MountDismountVehicle(){
 		if (playerInTrigger && !playerInVehicle) {
 			playerInVehicle = true;
 			player.SetActive (false);

@@ -35,7 +35,18 @@ public class AutoPilot : MonoBehaviour {
 	void Start(){
 		plane = GetComponent<AirplanePhysics> ();
 		rigid = GetComponent<Rigidbody> ();
+		GetComponent<ControlRegistration> ().RegisterControl += RegisterControl;
+		GetComponent<ControlRegistration> ().UnregisterControl += UnregisterControl;
+	}
+
+	void RegisterControl(){
+		// debug
 		DebugGUI.DebugGUICallback += debugGUI;
+	}
+
+	void UnregisterControl(){
+		// debug
+		DebugGUI.DebugGUICallback -= debugGUI;
 	}
 
 	void FixedUpdate(){

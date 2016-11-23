@@ -36,8 +36,7 @@ public class VehicleCamera : MonoBehaviour {
 		KeyboardEventHandler.Fire2_Keydown -= Scope;
 		KeyboardEventHandler.Fire2_Keyup -= Unscope;
 	}
-	
-	// Update is called once per frame
+
 	void Update () {
 		// update position of camera
 		cam.transform.position = transform.position + relativePos;

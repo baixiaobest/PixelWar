@@ -15,6 +15,10 @@ public class AirplaneCamera : MonoBehaviour {
 	
 
 	void Update () {
+		if (vehicle == null) {
+			Destroy (gameObject);
+			return;
+		}
 		transform.position = vehicle.transform.TransformPoint (relativePos);
 		transform.forward = Vector3.Lerp (transform.forward, LookatPos.position - transform.position, lerp * Time.deltaTime);
 	}

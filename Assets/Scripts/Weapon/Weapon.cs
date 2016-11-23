@@ -44,14 +44,17 @@ public class Weapon : MonoBehaviour {
 		triggerPressed = false;
 	}
 	virtual public void Fire(){
+		// create muzzle flare effect
 		muzzleFlare.Stop ();
 		muzzleFlare.Play ();
 
+		// instantiate new bullet at muzzle
 		GameObject newBullet = Instantiate (bullet, muzzleFlare.transform.position, Quaternion.identity) as GameObject;
 		newBullet.transform.forward = muzzleFlare.transform.forward;
 		newBullet.GetComponent<Bullet> ().Fire ();
 		StartRecoil ();
 
+		// sound of firing
 		Audio.Stop ();
 		Audio.clip = fireSound;
 		Audio.Play ();

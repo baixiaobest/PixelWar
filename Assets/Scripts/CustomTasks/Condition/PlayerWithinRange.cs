@@ -15,7 +15,7 @@ public class PlayerWithinRange : Conditional {
 	}
 	public override TaskStatus OnUpdate(){
 		foreach (GameObject enemy in enemies) {
-			if ((transform.position - enemy.transform.position).magnitude <= range) {
+			if (enemy != null && (transform.position - enemy.transform.position).magnitude <= range) {
 				target.Value = enemy;
 				return TaskStatus.Success;
 			}

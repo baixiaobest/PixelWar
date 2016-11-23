@@ -57,6 +57,15 @@ public class AirplanePhysics : MonoBehaviour {
 	// how much elevator can trim
 	private static float MAX_TRIM_PERCENTAGE = 0.3f;
 
+	///////////////////////////
+	///  Damage Simulation  ///
+	///////////////////////////
+
+	private bool throttleEnabled=true;
+	private bool aileronEnabled=true;
+	private bool elevatorEnabled=true;
+	private bool rudderEnabled=true;
+
 	// debug
 	private float AOA;
 	private float dragCoe;
@@ -67,8 +76,18 @@ public class AirplanePhysics : MonoBehaviour {
 		Vector3 COM = centerOfMass.position - transform.position;
 		rigid = GetComponent<Rigidbody> ();
 		rigid.centerOfMass = COM;
+		GetComponent<ControlRegistration> ().RegisterControl += RegisterControl;
+		GetComponent<ControlRegistration> ().UnregisterControl += UnregisterControl;
+	}
+
+	void RegisterControl(){
 		// debug
 		DebugGUI.DebugGUICallback += debugGUI;
+	}
+
+	void UnregisterControl(){
+		// debug
+		DebugGUI.DebugGUICallback -= debugGUI;
 	}
 
 	void FixedUpdate(){
@@ -128,7 +147,8 @@ public class AirplanePhysics : MonoBehaviour {
 	}
 
 	public void SetThrottle(float throttlePercentage){
-		throttle = maxThrottle * Mathf.Clamp (throttlePercentage, 0, 1);
+		if(throttleEnabled)
+			throttle = maxThrottle * Mathf.Clamp (throttlePercentage, 0, 1);
 	}
 
 	public float GetCurrentThrottlePercentage(){
@@ -137,17 +157,20 @@ public class AirplanePhysics : MonoBehaviour {
 
 	// - roll right, + roll left
 	public void SetAileron(float value){
-		aileronControl = Mathf.Clamp (value, -1, 1);
+		if(aileronEnabled)
+			aileronControl = Mathf.Clamp (value, -1, 1);
 	}
 
 	// - climb up, + pitch down
 	public void SetElevator(float value){
-		elevatorControl = Mathf.Clamp (value, -1, 1);
+		if(elevatorEnabled)
+			elevatorControl = Mathf.Clamp (value, -1, 1);
 	}
 
 	// - turn left, + turn right
 	public void SetRudder(float value){
-		rudderControl = Mathf.Clamp (value, -1, 1);
+		if(rudderEnabled)
+			rudderControl = Mathf.Clamp (value, -1, 1);
 	}
 
 	public void SetElevatorTrim(float value){
@@ -156,6 +179,34 @@ public class AirplanePhysics : MonoBehaviour {
 
 	public float GetElevatorTrim(){
 		return elevatorTrim;
+	}
+
+	//////////////
+	//  Damage  //
+	//////////////
+
+	// enable/disable throttle
+	public void SetActiveThrottle(bool enable){
+		throttleEnabled = enable;
+	}
+
+	public void SetActiveAileron(bool enable){
+		aileronEnabled = enable;
+	}
+
+	public void SetActiveElevator(bool enable){
+		elevatorEnabled = enable;
+	}
+
+	public void SetActiveRudder(bool enable){
+		rudderEnabled = enable;
+	}
+
+	public void SetActiveAllControls(bool enable){
+		throttleEnabled = enable;
+		aileronEnabled = enable;
+		elevatorEnabled = enable;
+		rudderEnabled = enable;
 	}
 
 	void debugGUI(){
