@@ -23,7 +23,7 @@ public class AirplaneDamageSystem : MonoBehaviour {
 
 	void Update () {
 		if (destroyAirplane) {
-			Destroy (gameObject, 0.2f);
+			Destroy (gameObject);
 			return;
 		}
 
@@ -51,7 +51,7 @@ public class AirplaneDamageSystem : MonoBehaviour {
 			if (health.GetHealth () == 0 && !destroyAirplane) {
 				GameObject effect = Instantiate (explosionEffect, transform.position, Quaternion.identity) as GameObject;
 				effect.GetComponent<AudioSource> ().Play ();
-				mountTrigger.MountDismountVehicle ();
+				mountTrigger.DismountVehicle ();
 				GetComponent<ControlRegistration> ().Unregister ();
 				destroyAirplane = true;
 			}

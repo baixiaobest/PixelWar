@@ -32,30 +32,15 @@ public class PlayerMovement : MonoBehaviour {
 	}
 
 	void Update () {
-		switch (movementMode) {
-		case MovementMode.Ground:
-			MoveOnGround ();
-			break;
-		case MovementMode.Air:
-			MoveInAir ();
-			break;
-		}
+		Move ();
 	}
 
-	private void MoveInAir(){
+	private void Move(){
+//		Debug.Log (rigid.velocity.magnitude);
 		if (!running) {
-			rigid.velocity = Vector3.Lerp (new Vector3(rigid.velocity.x, 0, rigid.velocity.z), walkSpeed * speedVec, speedLerp) + new Vector3(0, rigid.velocity.y, 0);
+			rigid.velocity = Vector3.Lerp (new Vector3 (rigid.velocity.x, 0, rigid.velocity.z), walkSpeed * speedVec, speedLerp) + new Vector3 (0, rigid.velocity.y, 0);
 		} else {
-			rigid.velocity = Vector3.Lerp (new Vector3(rigid.velocity.x, 0, rigid.velocity.z), runSpeed * speedVec, speedLerp) + new Vector3(0, rigid.velocity.y, 0);
-		}
-		ClearSpeed ();
-	}
-
-	private void MoveOnGround(){
-		if (!running) {
-			rigid.velocity = Vector3.Lerp (rigid.velocity, walkSpeed * speedVec, speedLerp);
-		} else {
-			rigid.velocity = Vector3.Lerp (rigid.velocity, runSpeed * speedVec, speedLerp);
+			rigid.velocity = Vector3.Lerp (new Vector3 (rigid.velocity.x, 0, rigid.velocity.z), runSpeed * speedVec, speedLerp) + new Vector3 (0, rigid.velocity.y, 0);
 		}
 		ClearSpeed ();
 	}
@@ -102,7 +87,7 @@ public class PlayerMovement : MonoBehaviour {
 
 	private void Jump(){
 		if (movementMode == MovementMode.Ground)
-			rigid.velocity = new Vector3 (rigid.velocity.x, jumpSpeed, rigid.velocity.z);//Vector3.up * jumpSpeed;
+			rigid.velocity = rigid.velocity + Vector3.up * jumpSpeed; //new Vector3 (rigid.velocity.x, jumpSpeed, rigid.velocity.z);
 	}
 
 	void OnCollisionStay(Collision col){

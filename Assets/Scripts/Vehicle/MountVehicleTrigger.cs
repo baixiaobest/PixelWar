@@ -4,7 +4,9 @@ using System.Collections;
 public class MountVehicleTrigger : MonoBehaviour {
 	public Camera vehicleCamera;
 	public AudioListener vehicleAudioListener;
-	private GameObject player;
+
+	private GameObject player;            // player in range
+	private GameObject vehicleSeats;      // player mounted the vehicle
 	private bool playerInVehicle = false;
 	private bool playerInTrigger = false;
 
@@ -16,20 +18,34 @@ public class MountVehicleTrigger : MonoBehaviour {
 
 	public void MountDismountVehicle(){
 		if (playerInTrigger && !playerInVehicle) {
-			playerInVehicle = true;
-			player.SetActive (false);
-			vehicleCamera.enabled = true;
-			vehicleAudioListener.enabled = true;
-			transform.parent.GetComponent<ControlRegistration> ().Register ();
+			MountVehicle ();
 		}else if (playerInVehicle) {
-			playerInVehicle = false;
-			player.SetActive (true);
-			player.transform.position = transform.position;
-			player.GetComponent<PlayerMovement> ().SetMovementMode (PlayerMovement.MovementMode.Air);
-			vehicleCamera.enabled = false;
-			vehicleAudioListener.enabled = false;
-			transform.parent.GetComponent<ControlRegistration> ().Unregister ();
+			DismountVehicle ();
 		}
+	}
+
+	public void MountVehicle(){
+		if (vehicleSeats != null)
+			return;
+		playerInVehicle = true;
+		player.SetActive (false);
+		vehicleCamera.enabled = true;
+		vehicleAudioListener.enabled = true;
+		vehicleSeats = player;
+		transform.parent.GetComponent<ControlRegistration> ().Register ();
+	}
+
+	public void DismountVehicle(){
+		if (vehicleSeats == null)
+			return;
+		playerInVehicle = false;
+		vehicleSeats.SetActive (true);
+		vehicleSeats.transform.position = transform.position;
+		vehicleSeats.GetComponent<PlayerMovement> ().SetMovementMode (PlayerMovement.MovementMode.Air);
+		vehicleCamera.enabled = false;
+		vehicleAudioListener.enabled = false;
+		vehicleSeats = null;
+		transform.parent.GetComponent<ControlRegistration> ().Unregister ();
 	}
 	
 	void OnTriggerEnter(Collider col){
