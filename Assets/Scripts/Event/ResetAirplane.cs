@@ -9,7 +9,7 @@ public class ResetAirplane : MonoBehaviour {
 	private bool initialReset = false;
 	// Use this for initialization
 	void Start () {
-		KeyboardEventHandler.Return_Keydown += Reset;
+		GetComponent<KeyboardEventHandler>().Return_Keydown += Reset;
 	}
 
 	void Update(){

@@ -13,7 +13,8 @@ public class MountVehicleTrigger : MonoBehaviour {
 	void Start () {
 		//vehicleCamera = this.transform.parent.GetComponentInChildren<Camera> ();
 		//vehicleAudioListener = this.transform.parent.GetComponentInChildren<AudioListener> ();
-		KeyboardEventHandler.F_Keydown += MountDismountVehicle;
+		KeyboardEventHandler keyboard = transform.root.gameObject.GetComponent<KeyboardEventHandler>();
+		keyboard.F_Keydown += MountDismountVehicle;
 	}
 
 	public void MountDismountVehicle(){

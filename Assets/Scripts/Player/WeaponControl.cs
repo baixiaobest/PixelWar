@@ -7,12 +7,15 @@ public class WeaponControl : MonoBehaviour {
 	public float scopeFOV = 40;
 	public float unscopeFOV = 60;
 
+	private KeyboardEventHandler keyboard;
+
 	// Use this for initialization
 	void Start () {
-		KeyboardEventHandler.Fire1_Keydown += TriggerPressed;
-		KeyboardEventHandler.Fire1_Keyup += TriggerUp;
-		KeyboardEventHandler.Fire2_Keydown += UseWeaponScope;
-		KeyboardEventHandler.Fire2_Keyup += NotUseWeaponScope;
+		keyboard = GetComponent<KeyboardEventHandler> ();
+		keyboard.Fire1_Keydown += TriggerPressed;
+		keyboard.Fire1_Keyup += TriggerUp;
+		keyboard.Fire2_Keydown += UseWeaponScope;
+		keyboard.Fire2_Keyup += NotUseWeaponScope;
 	}
 
 	protected void TriggerPressed(){

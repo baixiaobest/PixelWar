@@ -5,53 +5,55 @@ public class AirplaneControl : MonoBehaviour {
 
 	private AirplanePhysics airplane;
 	private AutoPilot autoPilot;
+	private KeyboardEventHandler keyboard;
 
 	// Use this for initialization
 	void Start () {
 		airplane = GetComponent<AirplanePhysics> ();
 		autoPilot = GetComponent<AutoPilot> ();
+		keyboard = GetComponent<KeyboardEventHandler> ();
 		GetComponent<ControlRegistration> ().RegisterControl += RegisterControl;
 		GetComponent<ControlRegistration> ().UnregisterControl += UnregisterControl;
 	}
 
 	public void RegisterControl(){
-		KeyboardEventHandler.D_Right += RollRight;
-		KeyboardEventHandler.A_Left += RollLeft;
-		KeyboardEventHandler.S_Backward += PitchUp;
-		KeyboardEventHandler.W_Forward += PitchDown;
-		KeyboardEventHandler.L_Shift += ThrustUp;
-		KeyboardEventHandler.L_Control += ThrustDown;
-		KeyboardEventHandler.Q_Keydown += RudderLeft;
-		KeyboardEventHandler.E_Keydown += RudderRight;
-		KeyboardEventHandler.W_Keyup += PitchZero;
-		KeyboardEventHandler.S_Keyup += PitchZero;
-		KeyboardEventHandler.A_Keyup += RollZero;
-		KeyboardEventHandler.D_Keyup += RollZero;
-		KeyboardEventHandler.Q_Keyup += RudderZero;
-		KeyboardEventHandler.E_Keyup += RudderZero;
-		KeyboardEventHandler.M_Keydown += ElevatorTrimUp;
-		KeyboardEventHandler.N_Keydown += ElevatorTrimDown;
-		KeyboardEventHandler.O_Keydown += AutopilotFlatAttitude;
+		keyboard.D_Right += RollRight;
+		keyboard.A_Left += RollLeft;
+		keyboard.S_Backward += PitchUp;
+		keyboard.W_Forward += PitchDown;
+		keyboard.L_Shift += ThrustUp;
+		keyboard.L_Control += ThrustDown;
+		keyboard.Q_Keydown += RudderLeft;
+		keyboard.E_Keydown += RudderRight;
+		keyboard.W_Keyup += PitchZero;
+		keyboard.S_Keyup += PitchZero;
+		keyboard.A_Keyup += RollZero;
+		keyboard.D_Keyup += RollZero;
+		keyboard.Q_Keyup += RudderZero;
+		keyboard.E_Keyup += RudderZero;
+		keyboard.M_Keydown += ElevatorTrimUp;
+		keyboard.N_Keydown += ElevatorTrimDown;
+		keyboard.O_Keydown += AutopilotFlatAttitude;
 	}
 
 	public void UnregisterControl(){
-		KeyboardEventHandler.D_Right -= RollRight;
-		KeyboardEventHandler.A_Left -= RollLeft;
-		KeyboardEventHandler.S_Backward -= PitchUp;
-		KeyboardEventHandler.W_Forward -= PitchDown;
-		KeyboardEventHandler.L_Shift -= ThrustUp;
-		KeyboardEventHandler.L_Control -= ThrustDown;
-		KeyboardEventHandler.Q_Keydown -= RudderLeft;
-		KeyboardEventHandler.E_Keydown -= RudderRight;
-		KeyboardEventHandler.W_Keyup -= PitchZero;
-		KeyboardEventHandler.S_Keyup -= PitchZero;
-		KeyboardEventHandler.A_Keyup -= RollZero;
-		KeyboardEventHandler.D_Keyup -= RollZero;
-		KeyboardEventHandler.Q_Keyup -= RudderZero;
-		KeyboardEventHandler.E_Keyup -= RudderZero;
-		KeyboardEventHandler.M_Keydown -= ElevatorTrimUp;
-		KeyboardEventHandler.N_Keydown -= ElevatorTrimDown;
-		KeyboardEventHandler.O_Keydown -= AutopilotFlatAttitude;
+		keyboard.D_Right -= RollRight;
+		keyboard.A_Left -= RollLeft;
+		keyboard.S_Backward -= PitchUp;
+		keyboard.W_Forward -= PitchDown;
+		keyboard.L_Shift -= ThrustUp;
+		keyboard.L_Control -= ThrustDown;
+		keyboard.Q_Keydown -= RudderLeft;
+		keyboard.E_Keydown -= RudderRight;
+		keyboard.W_Keyup -= PitchZero;
+		keyboard.S_Keyup -= PitchZero;
+		keyboard.A_Keyup -= RollZero;
+		keyboard.D_Keyup -= RollZero;
+		keyboard.Q_Keyup -= RudderZero;
+		keyboard.E_Keyup -= RudderZero;
+		keyboard.M_Keydown -= ElevatorTrimUp;
+		keyboard.N_Keydown -= ElevatorTrimDown;
+		keyboard.O_Keydown -= AutopilotFlatAttitude;
 	}
 
 	private void ThrustUp(){

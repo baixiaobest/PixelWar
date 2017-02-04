@@ -3,34 +3,36 @@ using System.Collections;
 
 public class TankControl : MonoBehaviour {
 	private TankPhysics tank;
+	private KeyboardEventHandler keyboard;
 
 	// Use this for initialization
 	void Start () {
 		tank = GetComponent<TankPhysics> ();
+		keyboard = GetComponent<KeyboardEventHandler> ();
 		GetComponent<ControlRegistration> ().RegisterControl += RegisterControl;
 		GetComponent<ControlRegistration> ().UnregisterControl += UnregisterControl;
 	}
 
 	void RegisterControl(){
-		KeyboardEventHandler.W_Forward += Forward;
-		KeyboardEventHandler.S_Backward += BackWard;
-		KeyboardEventHandler.A_Left += TurnLeft;
-		KeyboardEventHandler.D_Right += TurnRight;
-		KeyboardEventHandler.W_Keyup += ZeroMovement;
-		KeyboardEventHandler.S_Keyup += ZeroMovement;
-		KeyboardEventHandler.A_Keyup += ZeroTurn;
-		KeyboardEventHandler.D_Keyup += ZeroTurn;
+		keyboard.W_Forward += Forward;
+		keyboard.S_Backward += BackWard;
+		keyboard.A_Left += TurnLeft;
+		keyboard.D_Right += TurnRight;
+		keyboard.W_Keyup += ZeroMovement;
+		keyboard.S_Keyup += ZeroMovement;
+		keyboard.A_Keyup += ZeroTurn;
+		keyboard.D_Keyup += ZeroTurn;
 	}
 
 	void UnregisterControl(){
-		KeyboardEventHandler.W_Forward -= Forward;
-		KeyboardEventHandler.S_Backward -= BackWard;
-		KeyboardEventHandler.A_Left -= TurnLeft;
-		KeyboardEventHandler.D_Right -= TurnRight;
-		KeyboardEventHandler.W_Keyup -= ZeroMovement;
-		KeyboardEventHandler.S_Keyup -= ZeroMovement;
-		KeyboardEventHandler.A_Keyup -= ZeroTurn;
-		KeyboardEventHandler.D_Keyup -= ZeroTurn;
+		keyboard.W_Forward -= Forward;
+		keyboard.S_Backward -= BackWard;
+		keyboard.A_Left -= TurnLeft;
+		keyboard.D_Right -= TurnRight;
+		keyboard.W_Keyup -= ZeroMovement;
+		keyboard.S_Keyup -= ZeroMovement;
+		keyboard.A_Keyup -= ZeroTurn;
+		keyboard.D_Keyup -= ZeroTurn;
 	}
 	
 	void TurnLeft(){

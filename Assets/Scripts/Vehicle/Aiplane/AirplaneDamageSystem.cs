@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class AirplaneDamageSystem : MonoBehaviour {
-	public float loseControlHealth; // player loose control at this health
+	public float loseControlHealth; // player lose control at this health
 	public float minCollisionSpeed; // collision higher than this speed will damage the airplane
 	public float collisionDamageInterval;
 	public int collisionDamage; // amount of damage when collision higher than min collision speed
@@ -30,7 +30,9 @@ public class AirplaneDamageSystem : MonoBehaviour {
 		// disable control of the aircraft if aircraft is lower than lose control health
 		if(health.GetHealth() < loseControlHealth){
 			planePhy.SetThrottle (0);
-			planePhy.SetActiveThrottle (false);
+			planePhy.SetAileron (1f);
+			planePhy.SetActiveAllControls (false);
+			//planePhy.SetActiveThrottle (false);
 		}
 	}
 

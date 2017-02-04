@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.Networking;
 
 public class PlayerMovement : MonoBehaviour {
 	public float walkSpeed;
@@ -17,18 +18,20 @@ public class PlayerMovement : MonoBehaviour {
 	private MovementMode movementMode=MovementMode.Ground;
 	private bool running =false;
 	private Rigidbody rigid;
+	private KeyboardEventHandler keyboard;
 
 	void Start () {
 		rigid = GetComponent<Rigidbody> ();
 		speedVec = new Vector3 (0, 0, 0);
-		KeyboardEventHandler.W_Forward += Forward;
-		KeyboardEventHandler.S_Backward += Backward;
-		KeyboardEventHandler.A_Left += Left;
-		KeyboardEventHandler.D_Right += Right;
-		KeyboardEventHandler.Is_Running += Run;
-		KeyboardEventHandler.Is_Walking += Walk;
-		KeyboardEventHandler.MouseMovement += RotateView;
-		KeyboardEventHandler.Space_Keydown += Jump;
+		keyboard = GetComponent<KeyboardEventHandler> ();
+		keyboard.W_Forward += Forward;
+		keyboard.S_Backward += Backward;
+		keyboard.A_Left += Left;
+		keyboard.D_Right += Right;
+		keyboard.Is_Running += Run;
+		keyboard.Is_Walking += Walk;
+		keyboard.MouseMovement += RotateView;
+		keyboard.Space_Keydown += Jump;
 	}
 
 	void Update () {
