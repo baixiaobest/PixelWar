@@ -26,18 +26,17 @@ public class Bullet : NetworkBehaviour {
 		rigid.AddForce (antiGravity);
 	}
 
+	// bullet bounces off floor or obsticle, otherwise it deals damage and gets destroyed
 	void OnCollisionEnter(Collision collision){
-		if(collision.gameObject.CompareTag ("Player") || collision.gameObject.CompareTag ("Enemy")){
-			NetworkServer.Destroy (gameObject);
-		}else {
+		if(collision.gameObject.CompareTag ("Floor") || collision.gameObject.CompareTag ("Obstacle")){
 			Reflect (collision);
+		}else {
+			DealDamage (collision.gameObject, damage);
+			NetworkServer.Destroy (gameObject);
 		}
-		DealDamage (collision.gameObject, damage);
 	}
 
 	protected void DealDamage(GameObject collidedObject, int damageValue){
-		if (!isServer)
-			return;
 		Health health = collidedObject.GetComponent<Health> ();
 		if (health != null) {
 			health.TakeDamage (damageValue);

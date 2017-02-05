@@ -39,12 +39,12 @@ public class AutoPilot : MonoBehaviour {
 		GetComponent<ControlRegistration> ().UnregisterControl += UnregisterControl;
 	}
 
-	void RegisterControl(){
+	void RegisterControl(KeyboardEventHandler keyboard){
 		// debug
 		DebugGUI.DebugGUICallback += debugGUI;
 	}
 
-	void UnregisterControl(){
+	void UnregisterControl(KeyboardEventHandler keyboard){
 		// debug
 		DebugGUI.DebugGUICallback -= debugGUI;
 	}

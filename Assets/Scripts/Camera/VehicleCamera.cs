@@ -12,18 +12,16 @@ public class VehicleCamera : MonoBehaviour {
 	private Vector3 initialPos;
 	private Vector3 relativePos;  // camera relative position to vehicle (transform.position)
 	private float targetFOV;
-	private KeyboardEventHandler keyboard;
 
 	void Start () {
 		initialPos = cam.transform.position - transform.position;
 		relativePos = initialPos;
 		targetFOV = unscopeFOV;
-		keyboard = GetComponent<KeyboardEventHandler> ();
 		GetComponent<ControlRegistration> ().RegisterControl += RegisterControl;
 		GetComponent<ControlRegistration> ().UnregisterControl += UnregisterControl;
 	}
 
-	void RegisterControl(){
+	void RegisterControl(KeyboardEventHandler keyboard){
 		cam.transform.position = transform.position + initialPos;
 		cam.transform.parent = null;
 		cam.transform.up = Vector3.up;
@@ -32,7 +30,7 @@ public class VehicleCamera : MonoBehaviour {
 		keyboard.Fire2_Keyup += Unscope;
 	}
 
-	void UnregisterControl(){
+	void UnregisterControl(KeyboardEventHandler keyboard){
 		cam.transform.parent = transform;
 		keyboard.MouseMovement -= MouseMoved;
 		keyboard.Fire2_Keydown -= Scope;

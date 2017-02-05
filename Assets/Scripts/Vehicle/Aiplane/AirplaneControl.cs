@@ -5,18 +5,16 @@ public class AirplaneControl : MonoBehaviour {
 
 	private AirplanePhysics airplane;
 	private AutoPilot autoPilot;
-	private KeyboardEventHandler keyboard;
 
 	// Use this for initialization
 	void Start () {
 		airplane = GetComponent<AirplanePhysics> ();
 		autoPilot = GetComponent<AutoPilot> ();
-		keyboard = GetComponent<KeyboardEventHandler> ();
 		GetComponent<ControlRegistration> ().RegisterControl += RegisterControl;
 		GetComponent<ControlRegistration> ().UnregisterControl += UnregisterControl;
 	}
 
-	public void RegisterControl(){
+	public void RegisterControl(KeyboardEventHandler keyboard){
 		keyboard.D_Right += RollRight;
 		keyboard.A_Left += RollLeft;
 		keyboard.S_Backward += PitchUp;
@@ -36,7 +34,7 @@ public class AirplaneControl : MonoBehaviour {
 		keyboard.O_Keydown += AutopilotFlatAttitude;
 	}
 
-	public void UnregisterControl(){
+	public void UnregisterControl(KeyboardEventHandler keyboard){
 		keyboard.D_Right -= RollRight;
 		keyboard.A_Left -= RollLeft;
 		keyboard.S_Backward -= PitchUp;

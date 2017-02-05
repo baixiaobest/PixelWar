@@ -14,13 +14,13 @@ public class TankEngineSound : MonoBehaviour {
 		GetComponent<ControlRegistration> ().UnregisterControl += EngineStop;
 	}
 
-	void EngineStart(){
+	void EngineStart(KeyboardEventHandler keyboard){
 		engineAudioSource.clip = engineAudioClip;
 		engineAudioSource.Play ();
 		engineStart = true;
 	}
 
-	void EngineStop(){
+	void EngineStop(KeyboardEventHandler keyboard){
 		engineAudioSource.Stop ();
 		engineStart = false;
 	}

@@ -4,19 +4,17 @@ using System.Collections;
 public class AircraftWeaponControl : MonoBehaviour {
 	public GameObject[] Guns;
 
-	private KeyboardEventHandler keyboard;
 	public void Start(){
-		keyboard = GetComponent<KeyboardEventHandler> ();
 		GetComponent<ControlRegistration> ().RegisterControl += RegisterControl;
 		GetComponent<ControlRegistration> ().UnregisterControl += UnregisterControl;
 	}
 
-	public void RegisterControl(){
+	public void RegisterControl(KeyboardEventHandler keyboard){
 		keyboard.Fire1_Keydown += TriggerPressed;
 		keyboard.Fire1_Keyup += TriggerUp;
 	}
 
-	public void UnregisterControl(){
+	public void UnregisterControl(KeyboardEventHandler keyboard){
 		keyboard.Fire1_Keydown -= TriggerPressed;
 		keyboard.Fire1_Keyup -= TriggerUp;
 	}

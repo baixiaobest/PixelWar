@@ -17,12 +17,27 @@ public class PlayerMovement : MonoBehaviour {
 	private MovementMode movementMode=MovementMode.Ground;
 	private bool running =false;
 	private Rigidbody rigid;
-	private KeyboardEventHandler keyboard;
+	KeyboardEventHandler keyboard;
 
 	void Start () {
 		rigid = GetComponent<Rigidbody> ();
 		speedVec = new Vector3 (0, 0, 0);
 		keyboard = GetComponent<KeyboardEventHandler> ();
+		Register ();
+	}
+
+	public void Register(){
+		keyboard.W_Forward += Forward;
+		keyboard.S_Backward += Backward;
+		keyboard.A_Left += Left;
+		keyboard.D_Right += Right;
+		keyboard.Is_Running += Run;
+		keyboard.Is_Walking += Walk;
+		keyboard.MouseMovement += RotateView;
+		keyboard.Space_Keydown += Jump;
+	}
+
+	public void Unregister(){
 		keyboard.W_Forward += Forward;
 		keyboard.S_Backward += Backward;
 		keyboard.A_Left += Left;

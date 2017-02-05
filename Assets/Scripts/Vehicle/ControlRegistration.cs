@@ -2,17 +2,19 @@
 using System.Collections;
 
 public class ControlRegistration : MonoBehaviour {
-	public delegate void RegisterCallback();
+	public delegate void RegisterCallback(KeyboardEventHandler keyboard);
 	public event RegisterCallback RegisterControl;
 	public event RegisterCallback UnregisterControl;
-	
-	public void Register(){
+
+	private KeyboardEventHandler m_keyboard;
+	public void Register(KeyboardEventHandler keyboard){
+		m_keyboard = keyboard;
 		if (RegisterControl != null)
-			RegisterControl ();
+			RegisterControl (keyboard);
 	}
 
 	public void Unregister(){
 		if (UnregisterControl != null)
-			UnregisterControl ();
+			UnregisterControl (m_keyboard);
 	}
 }

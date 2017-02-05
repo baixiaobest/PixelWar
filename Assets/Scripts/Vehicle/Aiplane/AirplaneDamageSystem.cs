@@ -1,10 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.Networking;
 
-public class AirplaneDamageSystem : MonoBehaviour {
+public class AirplaneDamageSystem : NetworkBehaviour {
 	public float loseControlHealth; // player lose control at this health
 	public float minCollisionSpeed; // collision higher than this speed will damage the airplane
 	public float collisionDamageInterval;
+	public float timeToDestroy;  // At health 0, time elapses before airplane explodes
 	public int collisionDamage; // amount of damage when collision higher than min collision speed
 	public LayerMask collisionLayer; // airplane reduces health when it collides with this layer
 	public MountVehicleTrigger mountTrigger;
@@ -14,11 +16,13 @@ public class AirplaneDamageSystem : MonoBehaviour {
 	private bool destroyAirplane = false;
 	private Health health;
 	private AirplanePhysics planePhy;
+	private float timeToDestroyTimer;
 
 	void Start(){
 		lastTimeDamage = -collisionDamageInterval;
 		health = GetComponent<Health> ();
 		planePhy = GetComponent<AirplanePhysics> ();
+		timeToDestroyTimer = 0;
 	}
 
 	void Update () {
@@ -33,6 +37,17 @@ public class AirplaneDamageSystem : MonoBehaviour {
 			planePhy.SetAileron (1f);
 			planePhy.SetActiveAllControls (false);
 			//planePhy.SetActiveThrottle (false);
+		}
+
+		// countdown to explosion at health 0
+		if (health.GetHealth () == 0) {
+			timeToDestroyTimer += Time.deltaTime;
+		}
+		if (timeToDestroyTimer > timeToDestroy && !destroyAirplane) {
+			CmdExplosionEffect ();
+			mountTrigger.DismountVehicle ();
+			GetComponent<ControlRegistration> ().Unregister ();
+			destroyAirplane = true;
 		}
 	}
 
@@ -51,12 +66,18 @@ public class AirplaneDamageSystem : MonoBehaviour {
 			// So that airplane does not explode in the air
 			// Also, dismount player
 			if (health.GetHealth () == 0 && !destroyAirplane) {
-				GameObject effect = Instantiate (explosionEffect, transform.position, Quaternion.identity) as GameObject;
-				effect.GetComponent<AudioSource> ().Play ();
+				CmdExplosionEffect ();
 				mountTrigger.DismountVehicle ();
 				GetComponent<ControlRegistration> ().Unregister ();
 				destroyAirplane = true;
 			}
 		}
+	}
+
+	[Command]
+	void CmdExplosionEffect(){
+		GameObject effect = Instantiate (explosionEffect, transform.position, Quaternion.identity) as GameObject;
+		effect.GetComponent<AudioSource> ().Play ();
+		NetworkServer.Spawn (effect);
 	}
 }
