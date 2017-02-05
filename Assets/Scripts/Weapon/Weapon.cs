@@ -21,6 +21,7 @@ public class Weapon : MonoBehaviour {
 	private float lastFireTime;
 	private AudioSource Audio;
 	private bool usingScope = false;
+	private WeaponControl weaponControl;
 
 	public void Start(){
 		GunOriginalRelativePosition = transform.localPosition;
@@ -29,6 +30,7 @@ public class Weapon : MonoBehaviour {
 		alignmentVec = transform.localPosition + Vector3.Scale(scopeAlignment.transform.localPosition, transform.localScale);
 		Audio = GetComponent<AudioSource> ();
 		lastFireTime = -fireInterval;
+		weaponControl = transform.root.GetComponent<WeaponControl> ();
 	}
 
 	void Update(){
@@ -49,9 +51,7 @@ public class Weapon : MonoBehaviour {
 		muzzleFlare.Play ();
 
 		// instantiate new bullet at muzzle
-		GameObject newBullet = Instantiate (bullet, muzzleFlare.transform.position, Quaternion.identity) as GameObject;
-		newBullet.transform.forward = muzzleFlare.transform.forward;
-		newBullet.GetComponent<Bullet> ().Fire ();
+		weaponControl.CmdSpawnBullet (muzzleFlare.transform.position, muzzleFlare.transform.forward, muzzleFlare.transform.rotation);
 		StartRecoil ();
 
 		// sound of firing

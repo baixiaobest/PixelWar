@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using System.Collections;
-using UnityEngine.Networking;
 
 public class PlayerMovement : MonoBehaviour {
 	public float walkSpeed;

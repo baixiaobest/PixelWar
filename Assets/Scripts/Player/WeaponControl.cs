@@ -1,9 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.Networking;
 
-public class WeaponControl : MonoBehaviour {
+public class WeaponControl : NetworkBehaviour {
 	public Camera cam;
 	public GameObject ActiveWeapon;
+	public GameObject bullet;
 	public float scopeFOV = 40;
 	public float unscopeFOV = 60;
 
@@ -16,6 +18,17 @@ public class WeaponControl : MonoBehaviour {
 		keyboard.Fire1_Keyup += TriggerUp;
 		keyboard.Fire2_Keydown += UseWeaponScope;
 		keyboard.Fire2_Keyup += NotUseWeaponScope;
+	}
+
+	[Command]
+	public void CmdSpawnBullet(Vector3 position, Vector3 forward, Quaternion rotation){
+		GameObject newBullet = Instantiate (bullet, position, rotation) as GameObject;
+//		newBullet.GetComponent<Rigidbody> ().velocity = newBullet.transform.forward * 10f;
+		NetworkServer.Spawn (newBullet);
+	}
+
+	public void SetBullet(GameObject bulletPrefeb){
+		//bullet = bulletPrefeb;
 	}
 
 	protected void TriggerPressed(){

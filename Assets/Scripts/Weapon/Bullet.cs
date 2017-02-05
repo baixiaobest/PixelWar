@@ -1,39 +1,34 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.Networking;
 
-public class Bullet : MonoBehaviour {
+public class Bullet : NetworkBehaviour {
 	public float speed;
 	public int damage;
 	public float lifeTime;
 	public float gravityEffect=1;
 
-	private float lifeCounter = 0;
 	private Rigidbody rigid;
 
 	protected virtual void Start(){
 		rigid = GetComponent<Rigidbody> ();
+		GetComponent<Rigidbody> ().velocity = transform.forward * speed;
+		Destroy (gameObject, lifeTime);
 	}
-
+		
 	void Update(){
-		if (lifeCounter > lifeTime)
-			Destroy (gameObject);
-		lifeCounter += Time.deltaTime;
 		if(rigid.velocity.magnitude != 0)
 			transform.forward = rigid.velocity.normalized;
 	}
-
+		
 	void FixedUpdate(){
 		Vector3 antiGravity = -Physics.gravity * (1 - gravityEffect);
 		rigid.AddForce (antiGravity);
 	}
 
-	public void Fire(){
-		GetComponent<Rigidbody> ().velocity = transform.forward * speed;
-	}
-
 	void OnCollisionEnter(Collision collision){
 		if(collision.gameObject.CompareTag ("Player") || collision.gameObject.CompareTag ("Enemy")){
-			Destroy (gameObject);
+			NetworkServer.Destroy (gameObject);
 		}else {
 			Reflect (collision);
 		}
@@ -41,6 +36,8 @@ public class Bullet : MonoBehaviour {
 	}
 
 	protected void DealDamage(GameObject collidedObject, int damageValue){
+		if (!isServer)
+			return;
 		Health health = collidedObject.GetComponent<Health> ();
 		if (health != null) {
 			health.TakeDamage (damageValue);
