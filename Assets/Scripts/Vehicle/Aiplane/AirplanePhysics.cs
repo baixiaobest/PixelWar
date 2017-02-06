@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.Networking;
 
-public class AirplanePhysics : MonoBehaviour {
+public class AirplanePhysics : NetworkBehaviour {
 	public Transform centerOfMass;
 	public Transform centerOfLift;
 	public Transform centerOfTrust;
@@ -46,6 +47,7 @@ public class AirplanePhysics : MonoBehaviour {
 	public float rudderTorqueCoefficient=50f;
 
 	private Rigidbody rigid;
+	[SyncVar]
 	private float throttle;   // current aircraft throttle
 
 	// these control how much of aileron,elevator,rudder and trim are set, value from -1 to 1;
@@ -89,8 +91,10 @@ public class AirplanePhysics : MonoBehaviour {
 		// debug
 		DebugGUI.DebugGUICallback -= debugGUI;
 	}
-
+		
 	void FixedUpdate(){
+		SyncParameters (); // sync with server, so when client disconnect, physical parameters will remaine
+
 		Vector3 throttleVec = throttle * centerOfTrust.forward;
 		rigid.AddForceAtPosition (throttleVec, centerOfTrust.position);
 
@@ -208,6 +212,24 @@ public class AirplanePhysics : MonoBehaviour {
 		elevatorEnabled = enable;
 		rudderEnabled = enable;
 	}
+
+	///////////////////////////////////////
+	/// Synchronize physical parameters////
+	///////////////////////////////////////
+
+	[Command]
+	void CmdSetParameters(float trust){
+		throttle = trust;
+	}
+
+	void SyncParameters(){
+		CmdSetParameters (throttle);
+	}
+
+
+	////////////
+	/// Debug///
+	////////////
 
 	void debugGUI(){
 		GUIStyle style = new GUIStyle ();

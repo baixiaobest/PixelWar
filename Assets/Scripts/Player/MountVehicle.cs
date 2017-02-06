@@ -64,7 +64,8 @@ public class MountVehicle : NetworkBehaviour {
 		myVehicle.GetComponent<ControlRegistration> ().RegisterToServer ();  // disallow other clients to control
 	}
 
-	// It does the reverse of what cmdMount does
+	// it release client authority, so server regain authority over vehicle
+	// also, all controls to vehicle are unregistered
 	[Command]
 	public void CmdDismount(NetworkIdentity vehicleID, NetworkIdentity playerID, GameObject myVehicle){
 		vehicleID.RemoveClientAuthority (playerID.connectionToClient);

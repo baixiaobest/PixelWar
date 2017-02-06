@@ -1,11 +1,11 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Player/Network/WeaponControl_Network.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Vehicle/ControlRegistration.cs">
     <Files>
-      <File FileName="Assets/Scripts/Camera/Network/Camera_Network.cs" Line="11" Column="11" />
-      <File FileName="Assets/Scripts/Weapon/Network/Weapon_Network.cs" Line="56" Column="45" />
       <File FileName="Assets/Scripts/Weapon/Bullet.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Player/Network/WeaponControl_Network.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Manager Handler/NewNetworkManager.cs" Line="18" Column="45" />
+      <File FileName="Assets/Scripts/Player/MountVehicle.cs" Line="73" Column="2" />
+      <File FileName="Assets/Scripts/Vehicle/ControlRegistration.cs" Line="5" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
