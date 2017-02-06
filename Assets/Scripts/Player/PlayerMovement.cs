@@ -38,14 +38,14 @@ public class PlayerMovement : MonoBehaviour {
 	}
 
 	public void Unregister(){
-		keyboard.W_Forward += Forward;
-		keyboard.S_Backward += Backward;
-		keyboard.A_Left += Left;
-		keyboard.D_Right += Right;
-		keyboard.Is_Running += Run;
-		keyboard.Is_Walking += Walk;
-		keyboard.MouseMovement += RotateView;
-		keyboard.Space_Keydown += Jump;
+		keyboard.W_Forward -= Forward;
+		keyboard.S_Backward -= Backward;
+		keyboard.A_Left -= Left;
+		keyboard.D_Right -= Right;
+		keyboard.Is_Running -= Run;
+		keyboard.Is_Walking -= Walk;
+		keyboard.MouseMovement -= RotateView;
+		keyboard.Space_Keydown -= Jump;
 	}
 
 	void Update () {

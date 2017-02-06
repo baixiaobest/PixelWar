@@ -9,13 +9,24 @@ public class WeaponControl : NetworkBehaviour {
 	public float scopeFOV = 40;
 	public float unscopeFOV = 60;
 
+	private KeyboardEventHandler keyboard;
 	// Use this for initialization
 	void Start () {
-		KeyboardEventHandler keyboard = GetComponent<KeyboardEventHandler> ();
+		keyboard = GetComponent<KeyboardEventHandler> ();
+	}
+
+	public void Register(){
 		keyboard.Fire1_Keydown += TriggerPressed;
 		keyboard.Fire1_Keyup += TriggerUp;
 		keyboard.Fire2_Keydown += UseWeaponScope;
 		keyboard.Fire2_Keyup += NotUseWeaponScope;
+	}
+
+	public void Unregister(){
+		keyboard.Fire1_Keydown -= TriggerPressed;
+		keyboard.Fire1_Keyup -= TriggerUp;
+		keyboard.Fire2_Keydown -= UseWeaponScope;
+		keyboard.Fire2_Keyup -= NotUseWeaponScope;
 	}
 
 	[Command]

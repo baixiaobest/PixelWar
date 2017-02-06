@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class AircraftWeaponControl : MonoBehaviour {
+public class AircraftWeaponControl : WeaponControl {
 	public GameObject[] Guns;
 
 	public void Start(){

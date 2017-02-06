@@ -45,7 +45,7 @@ public class MountVehicleTrigger : MonoBehaviour {
 		vehicleCamera.enabled = false;
 		vehicleAudioListener.enabled = false;
 		vehicleSeats = null;
-		transform.parent.GetComponent<ControlRegistration> ().Unregister ();
+//		transform.parent.GetComponent<ControlRegistration> ().Unregister ();
 	}
 	
 	void OnTriggerEnter(Collider col){
