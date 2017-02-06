@@ -30,7 +30,7 @@ public class ControlRegistration : NetworkBehaviour {
 	}
 
 	public void Unregister(){
-		if (UnregisterControl != null)
+		if (UnregisterControl != null && m_keyboard != null)
 			UnregisterControl (m_keyboard);
 	}
 
@@ -44,4 +44,5 @@ public class ControlRegistration : NetworkBehaviour {
 	public void UnregisterToServer(){
 		registered = false;
 	}
+
 }

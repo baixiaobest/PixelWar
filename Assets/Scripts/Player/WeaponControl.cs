@@ -13,6 +13,7 @@ public class WeaponControl : NetworkBehaviour {
 	// Use this for initialization
 	void Start () {
 		keyboard = GetComponent<KeyboardEventHandler> ();
+		Register ();
 	}
 
 	public void Register(){
@@ -40,11 +41,11 @@ public class WeaponControl : NetworkBehaviour {
 		//bullet = bulletPrefeb;
 	}
 
-	protected void TriggerPressed(){
+	protected virtual void TriggerPressed(){
 		ActiveWeapon.GetComponent<Weapon> ().TriggerPressed();
 	}
 
-	protected void TriggerUp(){
+	protected virtual void TriggerUp(){
 		ActiveWeapon.GetComponent<Weapon> ().TriggerUp();
 	}
 

@@ -13,7 +13,7 @@ public class AirplaneDamageSystem : NetworkBehaviour {
 	public GameObject explosionEffect;
 
 	private float lastTimeDamage;
-	private bool destroyAirplane = false;
+	private bool destroyAirplane;
 	private Health health;
 	private AirplanePhysics planePhy;
 	private float timeToDestroyTimer;
@@ -23,6 +23,7 @@ public class AirplaneDamageSystem : NetworkBehaviour {
 		health = GetComponent<Health> ();
 		planePhy = GetComponent<AirplanePhysics> ();
 		timeToDestroyTimer = 0;
+		destroyAirplane = false;
 	}
 
 	void Update () {
@@ -44,9 +45,9 @@ public class AirplaneDamageSystem : NetworkBehaviour {
 			timeToDestroyTimer += Time.deltaTime;
 		}
 		if (timeToDestroyTimer > timeToDestroy && !destroyAirplane) {
-			CmdExplosionEffect ();
 			mountTrigger.DismountVehicle ();
 			GetComponent<ControlRegistration> ().Unregister ();
+			CmdExplosionEffect ();
 			destroyAirplane = true;
 		}
 	}
@@ -66,9 +67,9 @@ public class AirplaneDamageSystem : NetworkBehaviour {
 			// So that airplane does not explode in the air
 			// Also, dismount player
 			if (health.GetHealth () == 0 && !destroyAirplane) {
-				CmdExplosionEffect ();
 				mountTrigger.DismountVehicle ();
 				GetComponent<ControlRegistration> ().Unregister ();
+				CmdExplosionEffect ();
 				destroyAirplane = true;
 			}
 		}

@@ -19,12 +19,12 @@ public class AircraftWeaponControl : WeaponControl {
 		keyboard.Fire1_Keyup -= TriggerUp;
 	}
 	
-	protected void TriggerPressed(){
+	protected override void TriggerPressed(){
 		for (int i = 0; i < Guns.Length; i++)
 			Guns [i].GetComponent<Weapon> ().TriggerPressed ();
 	}
 
-	protected void TriggerUp(){
+	protected override void TriggerUp(){
 		for (int i = 0; i < Guns.Length; i++)
 			Guns [i].GetComponent<Weapon> ().TriggerUp ();
 	}

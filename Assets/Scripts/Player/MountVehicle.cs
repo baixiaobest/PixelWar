@@ -5,6 +5,7 @@ using UnityEngine.Networking;
 public class MountVehicle : NetworkBehaviour {
 	public LayerMask vehicleLayer;
 	public Transform raycastPoint;
+	public GameObject playerCamera;
 	public float raycastRange=3f;
 
 	private GameObject vehicle;
@@ -28,38 +29,46 @@ public class MountVehicle : NetworkBehaviour {
 
 	// This function let control functions in vehicle to register itself with KeyboardEventHandler
 	// It also unregister controls for playermovement and player weapon
-	void Mount(){
+	public void Mount(){
+		if (playerInVehicle)
+			return;
 		if (vehicle.GetComponent<ControlRegistration> ().Register (keyboard)) {
 			GetComponent<PlayerMovement> ().Unregister ();
 			GetComponent<WeaponControl> ().Unregister ();
 			playerInVehicle = true;
-			CmdMount (vehicle.GetComponent<NetworkIdentity>(), GetComponent<NetworkIdentity>());
+			playerCamera.GetComponent<Camera> ().enabled = false;
+			playerCamera.GetComponent<AudioListener> ().enabled = false;
+			CmdMount (vehicle.GetComponent<NetworkIdentity>(), GetComponent<NetworkIdentity>(), vehicle);
 		}
 	}
 
 	// It does the reverse of what Mount() does.
-	void Dismount(){
+	public void Dismount(){
+		if (!playerInVehicle)
+			return;
 		playerInVehicle = false;
 		GetComponent<PlayerMovement> ().Register ();
 		GetComponent<WeaponControl> ().Register ();
 		vehicle.GetComponent<ControlRegistration> ().Unregister();
-		CmdDismount (vehicle.GetComponent<NetworkIdentity>(), GetComponent<NetworkIdentity>());
+		playerCamera.GetComponent<Camera> ().enabled = true;
+		playerCamera.GetComponent<AudioListener> ().enabled = true;
+		CmdDismount (vehicle.GetComponent<NetworkIdentity>(), GetComponent<NetworkIdentity>(), vehicle);
 	}
 
 	// Command send to server.
 	// It allows client to claim authority over the vehicle
 	// It also set up a synced variable that tell other clients that the vehicle is occupied
 	[Command]
-	public void CmdMount(NetworkIdentity vehicleID, NetworkIdentity playerID){
+	public void CmdMount(NetworkIdentity vehicleID, NetworkIdentity playerID, GameObject myVehicle){
 		vehicleID.AssignClientAuthority (playerID.connectionToClient);    // allow client to control and sync vehicle
-		vehicle.GetComponent<ControlRegistration> ().RegisterToServer ();  // disallow other clients to control
+		myVehicle.GetComponent<ControlRegistration> ().RegisterToServer ();  // disallow other clients to control
 	}
 
 	// It does the reverse of what cmdMount does
 	[Command]
-	public void CmdDismount(NetworkIdentity vehicleID, NetworkIdentity playerID){
+	public void CmdDismount(NetworkIdentity vehicleID, NetworkIdentity playerID, GameObject myVehicle){
 		vehicleID.RemoveClientAuthority (playerID.connectionToClient);
-		vehicle.GetComponent<ControlRegistration> ().UnregisterToServer ();
+		myVehicle.GetComponent<ControlRegistration> ().UnregisterToServer ();
 	}
 
 
@@ -74,4 +83,5 @@ public class MountVehicle : NetworkBehaviour {
 			vehicleInRange = false;
 		}
 	}
+		
 }

@@ -597,9 +597,10 @@
      <Compile Include="Assets\Scripts\CustomTasks\Condition\TargetLocked.cs" />
      <Compile Include="Assets\Scripts\CustomTasks\Debug\GameObjectContainer.cs" />
      <Compile Include="Assets\Scripts\CustomTasks\Debug\GetContainerObject.cs" />
-     <Compile Include="Assets\Scripts\Event\KeyboardEventHandler.cs" />
-     <Compile Include="Assets\Scripts\Event\ResetAirplane.cs" />
      <Compile Include="Assets\Scripts\Health\Health.cs" />
+     <Compile Include="Assets\Scripts\Manager Handler\KeyboardEventHandler.cs" />
+     <Compile Include="Assets\Scripts\Manager Handler\NewNetworkManager.cs" />
+     <Compile Include="Assets\Scripts\Manager Handler\ResetAirplane.cs" />
      <Compile Include="Assets\Scripts\Player\AircraftWeaponControl.cs" />
      <Compile Include="Assets\Scripts\Player\GroundVehicleWeaponControl.cs" />
      <Compile Include="Assets\Scripts\Player\MountVehicle.cs" />
