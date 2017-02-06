@@ -26,10 +26,4 @@ public class NewNetworkManager : NetworkManager {
 
 		base.OnServerDisconnect (conn);
 	}
-
-	public override void OnClientDisconnect(NetworkConnection conn){
-		Debug.Log ("Client disconnect");
-
-		base.OnClientDisconnect (conn);
-	}
 }

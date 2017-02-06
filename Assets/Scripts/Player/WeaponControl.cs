@@ -17,15 +17,13 @@ public class WeaponControl : NetworkBehaviour {
 	}
 
 	public void Register(){
-		keyboard.Fire1_Keydown += TriggerPressed;
-		keyboard.Fire1_Keyup += TriggerUp;
+		keyboard.Fire1_Key += Trigger;
 		keyboard.Fire2_Keydown += UseWeaponScope;
 		keyboard.Fire2_Keyup += NotUseWeaponScope;
 	}
 
 	public void Unregister(){
-		keyboard.Fire1_Keydown -= TriggerPressed;
-		keyboard.Fire1_Keyup -= TriggerUp;
+		keyboard.Fire1_Key -= Trigger;
 		keyboard.Fire2_Keydown -= UseWeaponScope;
 		keyboard.Fire2_Keyup -= NotUseWeaponScope;
 	}
@@ -41,12 +39,8 @@ public class WeaponControl : NetworkBehaviour {
 		//bullet = bulletPrefeb;
 	}
 
-	protected virtual void TriggerPressed(){
-		ActiveWeapon.GetComponent<Weapon> ().TriggerPressed();
-	}
-
-	protected virtual void TriggerUp(){
-		ActiveWeapon.GetComponent<Weapon> ().TriggerUp();
+	protected virtual void Trigger(){
+		ActiveWeapon.GetComponent<Weapon> ().Fire ();
 	}
 
 	protected void UseWeaponScope(){

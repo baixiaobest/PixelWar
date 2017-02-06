@@ -13,7 +13,6 @@ public class Weapon : MonoBehaviour {
 	public AudioClip fireSound;
 
 	private float recoilTimer;
-	protected bool triggerPressed=false;
 	protected Vector3 GunOriginalRelativePosition;   // Gun relative position to parent
 	private Vector3 GunInitialRelativePosition;
 	private Vector3 alignmentVec;
@@ -34,18 +33,14 @@ public class Weapon : MonoBehaviour {
 	}
 
 	void Update(){
-		if (Time.time - lastFireTime > fireInterval && triggerPressed)
-			Fire ();
 		AnimateRecoil ();
 	}
 
-	public void TriggerPressed(){
-		triggerPressed = true;
-	}
-	public void TriggerUp(){
-		triggerPressed = false;
-	}
 	virtual public void Fire(){
+		// fire at an interval
+		if (Time.time - lastFireTime < fireInterval)
+			return;
+
 		// create muzzle flare effect
 		muzzleFlare.Stop ();
 		muzzleFlare.Play ();

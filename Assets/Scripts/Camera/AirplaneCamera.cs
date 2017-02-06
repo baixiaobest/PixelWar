@@ -29,6 +29,10 @@ public class AirplaneCamera : MonoBehaviour {
 		transform.position = vehicle.transform.TransformPoint (relativePos);
 		transform.forward = Vector3.Lerp (transform.forward, LookatPos.position - transform.position, lerp * Time.deltaTime);
 
+		// camera should be disabled if client disconnects from server
+		if(vehicle.GetComponent<NetworkIdentity>().clientAuthorityOwner == null){
+			DisableCamera (null);
+		}
 	}
 
 	void EnableCamera(KeyboardEventHandler keyboard){

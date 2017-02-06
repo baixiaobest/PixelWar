@@ -10,22 +10,15 @@ public class AircraftWeaponControl : WeaponControl {
 	}
 
 	public void RegisterControl(KeyboardEventHandler keyboard){
-		keyboard.Fire1_Keydown += TriggerPressed;
-		keyboard.Fire1_Keyup += TriggerUp;
+		keyboard.Fire1_Key += Trigger;
 	}
 
 	public void UnregisterControl(KeyboardEventHandler keyboard){
-		keyboard.Fire1_Keydown -= TriggerPressed;
-		keyboard.Fire1_Keyup -= TriggerUp;
+		keyboard.Fire1_Key -= Trigger;
 	}
 	
-	protected override void TriggerPressed(){
+	protected override void Trigger(){
 		for (int i = 0; i < Guns.Length; i++)
-			Guns [i].GetComponent<Weapon> ().TriggerPressed ();
-	}
-
-	protected override void TriggerUp(){
-		for (int i = 0; i < Guns.Length; i++)
-			Guns [i].GetComponent<Weapon> ().TriggerUp ();
+			Guns [i].GetComponent<Weapon> ().Fire ();
 	}
 }

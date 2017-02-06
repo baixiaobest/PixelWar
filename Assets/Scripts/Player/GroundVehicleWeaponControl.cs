@@ -12,20 +12,14 @@ public class GroundVehicleWeaponControl : MonoBehaviour {
 	}
 
 	public void RegisterControl(KeyboardEventHandler keyboard){
-		keyboard.Fire1_Keydown += TriggerPressed;
-		keyboard.Fire1_Keyup += TriggerUp;
+		keyboard.Fire1_Key += Trigger;
 	}
 
 	public void UnregisterControl(KeyboardEventHandler keyboard){
-		keyboard.Fire1_Keydown -= TriggerPressed;
-		keyboard.Fire1_Keyup -= TriggerUp;
+		keyboard.Fire1_Key -= Trigger;
 	}
 
-	protected void TriggerPressed(){
-		mainGun.GetComponent<Weapon> ().TriggerPressed ();
-	}
-
-	protected void TriggerUp(){
-		mainGun.GetComponent<Weapon> ().TriggerUp ();
+	protected void Trigger(){
+		mainGun.GetComponent<Weapon> ().Fire ();
 	}
 }

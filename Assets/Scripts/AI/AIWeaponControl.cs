@@ -12,7 +12,7 @@ public class AIWeaponControl : MonoBehaviour {
 			timer -= Time.deltaTime;
 		if (timer <= 0) {
 			for(int i=0; i<activeWeapons.Length; i++)
-				activeWeapons[i].TriggerUp ();
+				activeWeapons[i].Fire ();
 		}
 	}
 
@@ -24,6 +24,6 @@ public class AIWeaponControl : MonoBehaviour {
 	public void FireForTime(float time){
 		timer = time;
 		for(int i=0; i<activeWeapons.Length; i++)
-			activeWeapons[i].TriggerPressed ();
+			activeWeapons[i].Fire ();
 	}
 }
