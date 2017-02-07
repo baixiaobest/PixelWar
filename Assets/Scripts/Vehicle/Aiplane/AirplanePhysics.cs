@@ -222,8 +222,11 @@ public class AirplanePhysics : NetworkBehaviour {
 		throttle = trust;
 	}
 
+	// this will cause warning of "sending command without authority"
+	// because this aircraft is not local player, it should not send command
 	void SyncParameters(){
-		CmdSetParameters (throttle);
+		if(isClient)
+			CmdSetParameters (throttle);
 	}
 
 

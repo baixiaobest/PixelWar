@@ -16,6 +16,7 @@ public class AirplaneCamera : BaseCamera {
 	void Start(){
 		cam = Camera.GetComponent<Camera> ();
 		listener = Camera.GetComponent<AudioListener> ();
+		GetComponent<ControlRegistration> ().RegisterControl += GetKeyboard;
 		vehicle = gameObject;
 		Camera.transform.parent = null;
 		relativePos = vehicle.transform.InverseTransformPoint(Camera.transform.position);
@@ -25,6 +26,15 @@ public class AirplaneCamera : BaseCamera {
 	void Update () {
 		Camera.transform.position = vehicle.transform.TransformPoint (relativePos);
 		Camera.transform.forward = Vector3.Lerp (Camera.transform.forward, LookatPos.position - Camera.transform.position, lerp * Time.deltaTime);
+
+		// disable camera if client disconnect
+		if (keyboard == null) {
+			Disable ();
+		}
+	}
+
+	void GetKeyboard(KeyboardEventHandler key){
+		keyboard = key;
 	}
 
 	void OnDestroy(){
