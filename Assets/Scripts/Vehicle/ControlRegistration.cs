@@ -44,5 +44,4 @@ public class ControlRegistration : NetworkBehaviour {
 	public void UnregisterToServer(){
 		registered = false;
 	}
-
 }

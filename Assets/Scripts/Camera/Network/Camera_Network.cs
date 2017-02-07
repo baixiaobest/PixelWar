@@ -4,9 +4,9 @@ using UnityEngine.Networking;
 
 public class Camera_Network : MonoBehaviour {
 
-
 	void Start () {
-		if (!transform.root.GetComponent<NetworkIdentity>().isLocalPlayer) {
+		NetworkIdentity id = transform.root.GetComponent<NetworkIdentity> ();
+		if (id == null || !id.isLocalPlayer) {
 			GetComponent<Camera> ().enabled = false;
 			GetComponent<AudioListener> ().enabled = false;
 		} else {

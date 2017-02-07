@@ -64,7 +64,7 @@ public class KeyboardEventHandler : NetworkBehaviour {
 	public event MouseMovementCallBack MouseMovement;
 
 	void Start(){
-		Cursor.visible = false;
+//		Cursor.visible = false;
 //		Cursor.lockState = CursorLockMode.Locked;
 		Random.InitState((int)System.DateTime.Now.Ticks);
 	}
@@ -267,8 +267,8 @@ public class KeyboardEventHandler : NetworkBehaviour {
 
 		if (Input.GetButton ("Fire1")) {
 			if (Fire1_Key != null) {
-				Cursor.visible = false;
-				Cursor.lockState = CursorLockMode.Locked;
+//				Cursor.visible = false;
+//				Cursor.lockState = CursorLockMode.Locked;
 				Fire1_Key ();
 			}
 		}

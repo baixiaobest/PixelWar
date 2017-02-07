@@ -2,45 +2,41 @@
 using System.Collections;
 using UnityEngine.Networking;
 
-public class AirplaneCamera : MonoBehaviour {
-	public GameObject vehicle;
+public class AirplaneCamera : BaseCamera {
+	public GameObject Camera;
 	public Transform LookatPos;
 	public float lerp=0.5f;
 
+	private GameObject vehicle;
 	private Vector3 relativePos;
 	private Camera cam;
 	private AudioListener listener;
+	private KeyboardEventHandler keyboard;
 
-	void Start () {
-		cam = GetComponent<Camera> ();
-		listener = GetComponent<AudioListener> ();
-		transform.root.gameObject.GetComponent<ControlRegistration> ().RegisterControl += EnableCamera;
-		transform.root.gameObject.GetComponent<ControlRegistration> ().UnregisterControl += DisableCamera;
-
-		transform.parent = null;
-		relativePos = vehicle.transform.InverseTransformPoint(transform.position);
+	void Start(){
+		cam = Camera.GetComponent<Camera> ();
+		listener = Camera.GetComponent<AudioListener> ();
+		vehicle = gameObject;
+		Camera.transform.parent = null;
+		relativePos = vehicle.transform.InverseTransformPoint(Camera.transform.position);
+		Disable ();
 	}
 
 	void Update () {
-		if (vehicle == null) {
-			Destroy (gameObject);
-			return;
-		}
-		transform.position = vehicle.transform.TransformPoint (relativePos);
-		transform.forward = Vector3.Lerp (transform.forward, LookatPos.position - transform.position, lerp * Time.deltaTime);
-
-		// camera should be disabled if client disconnects from server
-		if(vehicle.GetComponent<NetworkIdentity>().clientAuthorityOwner == null){
-			DisableCamera (null);
-		}
+		Camera.transform.position = vehicle.transform.TransformPoint (relativePos);
+		Camera.transform.forward = Vector3.Lerp (Camera.transform.forward, LookatPos.position - Camera.transform.position, lerp * Time.deltaTime);
 	}
 
-	void EnableCamera(KeyboardEventHandler keyboard){
+	void OnDestroy(){
+		Destroy (Camera);
+	}
+
+	override public void Enable(){
 		cam.enabled = true;
 		listener.enabled = true;
 	}
 
-	void DisableCamera(KeyboardEventHandler keyboard){
+	override public void Disable(){
 		cam.enabled = false;
 		listener.enabled = false;
 	}

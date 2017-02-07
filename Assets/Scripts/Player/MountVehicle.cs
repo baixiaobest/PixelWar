@@ -38,6 +38,7 @@ public class MountVehicle : NetworkBehaviour {
 			playerInVehicle = true;
 			playerCamera.GetComponent<Camera> ().enabled = false;
 			playerCamera.GetComponent<AudioListener> ().enabled = false;
+			vehicle.GetComponent<BaseCamera> ().Enable ();
 			CmdMount (vehicle.GetComponent<NetworkIdentity>(), GetComponent<NetworkIdentity>(), vehicle);
 		}
 	}
@@ -52,6 +53,7 @@ public class MountVehicle : NetworkBehaviour {
 		vehicle.GetComponent<ControlRegistration> ().Unregister();
 		playerCamera.GetComponent<Camera> ().enabled = true;
 		playerCamera.GetComponent<AudioListener> ().enabled = true;
+		vehicle.GetComponent<BaseCamera> ().Disable ();
 		CmdDismount (vehicle.GetComponent<NetworkIdentity>(), GetComponent<NetworkIdentity>(), vehicle);
 	}
 
