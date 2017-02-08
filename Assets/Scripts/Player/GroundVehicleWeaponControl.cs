@@ -1,10 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class GroundVehicleWeaponControl : MonoBehaviour {
-	public GameObject mainGun;
-	public float scopeFOV = 40;
-	public float unscopeFOV = 60;
+public class GroundVehicleWeaponControl : WeaponControl {
 
 	public void Start(){
 		GetComponent<ControlRegistration> ().RegisterControl += RegisterControl;
@@ -19,7 +16,7 @@ public class GroundVehicleWeaponControl : MonoBehaviour {
 		keyboard.Fire1_Key -= Trigger;
 	}
 
-	protected void Trigger(){
-		mainGun.GetComponent<Weapon> ().Fire ();
+	protected override void Trigger(){
+		ActiveWeapon.GetComponent<Weapon> ().Fire ();
 	}
 }

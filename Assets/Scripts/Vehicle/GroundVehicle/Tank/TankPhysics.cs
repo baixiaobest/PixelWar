@@ -19,8 +19,8 @@ public class TankPhysics : MonoBehaviour {
 	void Start(){
 		rigid = GetComponent<Rigidbody> ();
 	}
-
-	void Update(){
+		
+	void FixedUpdate(){
 		if (movementMode == MovementMode.Ground) {
 			// engine acceleration + acceleration due to gravity
 			rigid.velocity += (acceleration +  9.8f * Vector3.Dot(-Vector3.up, transform.forward) ) * Time.deltaTime * transform.forward;

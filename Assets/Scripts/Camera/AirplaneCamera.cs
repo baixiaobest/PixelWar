@@ -27,7 +27,7 @@ public class AirplaneCamera : BaseCamera {
 		Camera.transform.position = vehicle.transform.TransformPoint (relativePos);
 		Camera.transform.forward = Vector3.Lerp (Camera.transform.forward, LookatPos.position - Camera.transform.position, lerp * Time.deltaTime);
 
-		// disable camera if client disconnect
+		// disable camera if client disconnects
 		if (keyboard == null) {
 			Disable ();
 		}

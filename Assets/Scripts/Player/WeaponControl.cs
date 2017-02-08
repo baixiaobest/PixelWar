@@ -6,6 +6,8 @@ public class WeaponControl : NetworkBehaviour {
 	public Camera cam;
 	public GameObject ActiveWeapon;
 	public GameObject bullet;
+
+
 	public float scopeFOV = 40;
 	public float unscopeFOV = 60;
 
@@ -17,12 +19,16 @@ public class WeaponControl : NetworkBehaviour {
 	}
 
 	public void Register(){
+		if (keyboard == null)
+			return;
 		keyboard.Fire1_Key += Trigger;
 		keyboard.Fire2_Keydown += UseWeaponScope;
 		keyboard.Fire2_Keyup += NotUseWeaponScope;
 	}
 
 	public void Unregister(){
+		if (keyboard == null)
+			return;
 		keyboard.Fire1_Key -= Trigger;
 		keyboard.Fire2_Keydown -= UseWeaponScope;
 		keyboard.Fire2_Keyup -= NotUseWeaponScope;
@@ -33,10 +39,6 @@ public class WeaponControl : NetworkBehaviour {
 		GameObject newBullet = Instantiate (bullet, position, rotation) as GameObject;
 //		newBullet.GetComponent<Rigidbody> ().velocity = newBullet.transform.forward * 10f;
 		NetworkServer.Spawn (newBullet);
-	}
-
-	public void SetBullet(GameObject bulletPrefeb){
-		//bullet = bulletPrefeb;
 	}
 
 	protected virtual void Trigger(){

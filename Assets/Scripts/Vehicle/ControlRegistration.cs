@@ -4,8 +4,11 @@ using UnityEngine.Networking;
 
 public class ControlRegistration : NetworkBehaviour {
 	public delegate void RegisterCallback(KeyboardEventHandler keyboard);
+	public delegate void ObjectDestroyed ();
+
 	public event RegisterCallback RegisterControl;
 	public event RegisterCallback UnregisterControl;
+	public event ObjectDestroyed OnObjectDestory;
 
 	private KeyboardEventHandler m_keyboard;
 
@@ -43,5 +46,12 @@ public class ControlRegistration : NetworkBehaviour {
 
 	public void UnregisterToServer(){
 		registered = false;
+	}
+
+	// when vehicle is destroyed, it is only disabled on local client
+	// so Disable will be called
+	void OnDisable(){
+		if (OnObjectDestory != null)
+			OnObjectDestory ();
 	}
 }

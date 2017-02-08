@@ -9,6 +9,7 @@ public class Weapon : MonoBehaviour {
 
 	public float fireInterval = 0.1f;
 	public ParticleSystem muzzleFlare;
+	public Transform bulletInitPoint;
 	public GameObject bullet;
 	public AudioClip fireSound;
 
@@ -46,7 +47,7 @@ public class Weapon : MonoBehaviour {
 		muzzleFlare.Play ();
 
 		// instantiate new bullet at muzzle
-		weaponControl.CmdSpawnBullet (muzzleFlare.transform.position, muzzleFlare.transform.forward, muzzleFlare.transform.rotation);
+		weaponControl.CmdSpawnBullet (bulletInitPoint.position, bulletInitPoint.forward, bulletInitPoint.rotation);
 		StartRecoil ();
 
 		// sound of firing

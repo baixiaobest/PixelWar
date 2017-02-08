@@ -33,6 +33,7 @@ public class MountVehicle : NetworkBehaviour {
 		if (playerInVehicle)
 			return;
 		if (vehicle.GetComponent<ControlRegistration> ().Register (keyboard)) {
+			vehicle.GetComponent<ControlRegistration> ().OnObjectDestory += Dismount;
 			GetComponent<PlayerMovement> ().Unregister ();
 			GetComponent<WeaponControl> ().Unregister ();
 			playerInVehicle = true;
@@ -53,8 +54,12 @@ public class MountVehicle : NetworkBehaviour {
 		vehicle.GetComponent<ControlRegistration> ().Unregister();
 		playerCamera.GetComponent<Camera> ().enabled = true;
 		playerCamera.GetComponent<AudioListener> ().enabled = true;
-		vehicle.GetComponent<BaseCamera> ().Disable ();
-		CmdDismount (vehicle.GetComponent<NetworkIdentity>(), GetComponent<NetworkIdentity>(), vehicle);
+
+		// if vehicle is null, vehicle is destroyed before player dismounts
+		if (vehicle != null) {
+			vehicle.GetComponent<BaseCamera> ().Disable ();
+			CmdDismount (vehicle.GetComponent<NetworkIdentity> (), GetComponent<NetworkIdentity> (), vehicle);
+		}
 	}
 
 	// Command send to server.

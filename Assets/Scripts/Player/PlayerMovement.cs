@@ -27,6 +27,8 @@ public class PlayerMovement : MonoBehaviour {
 	}
 
 	public void Register(){
+		if (keyboard == null)
+			return;
 		keyboard.W_Forward += Forward;
 		keyboard.S_Backward += Backward;
 		keyboard.A_Left += Left;
@@ -38,6 +40,8 @@ public class PlayerMovement : MonoBehaviour {
 	}
 
 	public void Unregister(){
+		if (keyboard == null)
+			return;
 		keyboard.W_Forward -= Forward;
 		keyboard.S_Backward -= Backward;
 		keyboard.A_Left -= Left;

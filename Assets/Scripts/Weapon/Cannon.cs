@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.Networking;
 
 public class Cannon : Bullet {
 	public GameObject explosion;
@@ -14,10 +15,13 @@ public class Cannon : Bullet {
 
 	// when cannon touch any collider, it explodes
 	void OnCollisionEnter(Collision col){
+		if (!isServer)
+			return;
 		GameObject effect = GameObject.Instantiate (explosion, transform.position, Quaternion.identity) as GameObject;
 		effect.transform.up = col.contacts [0].normal;
 		AudioSource audio = effect.GetComponent<AudioSource> ();
 		audio.Play ();
+		NetworkServer.Spawn (effect);
 		DealExplosionDamageToObjects ();
 		Destroy (gameObject);
 	}

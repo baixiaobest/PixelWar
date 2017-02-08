@@ -17,7 +17,7 @@ public class TankTurret : MonoBehaviour {
 		Vector3 turretLookat = cam.transform.forward - Vector3.Dot (cam.transform.forward, turret.up) * turret.up;
 		float turretAngle = Vector3.Angle (turretLookat, turret.forward);
 		float sign = Mathf.Sign (Vector3.Dot (Vector3.Cross (turret.forward, turretLookat), turret.up));  // direction of turret rotation
-		if (turretAngle > 3f) {
+		if (turretAngle > 1.5f) {
 			turret.RotateAround (turret.position, turret.up, sign * turretTurningSpeed * Time.deltaTime);
 		} else {
 			turret.RotateAround (turret.position, turret.up, sign * turretAngle);
