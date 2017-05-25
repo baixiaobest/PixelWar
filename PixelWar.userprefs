@@ -1,17 +1,17 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Vehicle/GroundVehicle/Tank/TankPhysics.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Player/MountVehicle.cs">
     <Files>
+      <File FileName="Assets/Scripts/Player/MountVehicle.cs" Line="78" Column="1" />
       <File FileName="Assets/Scripts/Weapon/Bullet.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Weapon/Cannon.cs" Line="24" Column="32" />
-      <File FileName="Assets/Scripts/Player/WeaponControl.cs" Line="31" Column="11" />
-      <File FileName="Assets/Scripts/Player/GroundVehicleWeaponControl.cs" Line="5" Column="1" />
-      <File FileName="Assets/Scripts/Player/AircraftWeaponControl.cs" Line="9" Column="70" />
-      <File FileName="Assets/Scripts/Weapon/Weapon.cs" Line="4" Column="1" />
-      <File FileName="Assets/Scripts/Camera/VehicleCamera.cs" Line="20" Column="1" />
-      <File FileName="Assets/Scripts/Vehicle/ControlRegistration.cs" Line="55" Column="1" />
-      <File FileName="Assets/Scripts/Player/MountVehicle.cs" Line="58" Column="37" />
-      <File FileName="Assets/Scripts/Vehicle/GroundVehicle/Tank/TankPhysics.cs" Line="27" Column="62" />
+      <File FileName="Assets/Scripts/Weapon/Cannon.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Player/WeaponControl.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Player/GroundVehicleWeaponControl.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Player/AircraftWeaponControl.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Weapon/Weapon.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Camera/VehicleCamera.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Vehicle/ControlRegistration.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Vehicle/GroundVehicle/Tank/TankPhysics.cs" Line="16" Column="31" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

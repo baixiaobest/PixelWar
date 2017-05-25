@@ -22,7 +22,7 @@ public class Bullet : NetworkBehaviour {
 	}
 		
 	void FixedUpdate(){
-		Vector3 antiGravity = -Physics.gravity * (1 - gravityEffect);
+		Vector3 antiGravity = -Physics.gravity * (1 - gravityEffect) * rigid.mass;
 		rigid.AddForce (antiGravity);
 	}
 
