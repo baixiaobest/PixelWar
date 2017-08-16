@@ -17,7 +17,7 @@ public class PlayerMovement : MonoBehaviour {
 	private MovementMode movementMode=MovementMode.Ground;
 	private bool running =false;
 	private Rigidbody rigid;
-	KeyboardEventHandler keyboard;
+	private KeyboardEventHandler keyboard;
 
 	void Start () {
 		rigid = GetComponent<Rigidbody> ();
@@ -57,7 +57,6 @@ public class PlayerMovement : MonoBehaviour {
 	}
 
 	private void Move(){
-//		Debug.Log (rigid.velocity.magnitude);
 		if (!running) {
 			rigid.velocity = Vector3.Lerp (new Vector3 (rigid.velocity.x, 0, rigid.velocity.z), walkSpeed * speedVec, speedLerp) + new Vector3 (0, rigid.velocity.y, 0);
 		} else {
@@ -94,7 +93,6 @@ public class PlayerMovement : MonoBehaviour {
 	}
 
 	private void RotateView(float x, float y){
-		//Debug.Log ("rotate");
 		transform.RotateAround (transform.position, Vector3.up, mouseSensitivity*x);
 
 		float angleToUp = Vector3.Angle (cam.transform.forward, Vector3.up);
